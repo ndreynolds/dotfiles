@@ -16,9 +16,9 @@
 [submodule ".vim/bundle/cakephp"]
 	path = .vim/bundle/cakephp
 	url = https://github.com/ndreynolds/vim-cakephp.git
-[submodule ".vim/bundle/pyflakes"]
-	path = .vim/bundle/pyflakes
-	url = https://github.com/kevinw/pyflakes-vim.git
 [submodule ".vim/bundle/pydoc"]
 	path = .vim/bundle/pydoc
 	url = https://github.com/fs111/pydoc.vim.git
+[submodule ".vim/bundle/pyflakes"]
+	path = .vim/bundle/pyflakes
+	url = https://github.com/ndreynolds/pyflakes-vim.git
