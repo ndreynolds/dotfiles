@@ -1,39 +1,24 @@
-[submodule ".vim/bundle/snipmate"]
-	path = bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
-[submodule ".vim/bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = git://github.com/scrooloose/nerdtree
-[submodule ".vim/bundle/nerdcommenter"]
-	path = bundle/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter
-[submodule ".vim/bundle/surround"]
-	path = bundle/surround
-	url = git://github.com/tpope/vim-surround
-[submodule ".vim/bundle/fugitive"]
-	path = bundle/fugitive
-	url = git://github.com/tpope/vim-fugitive
-[submodule ".vim/bundle/sparkup"]
-	path = bundle/sparkup
-	url = git://github.com/kogakure/vim-sparkup
-[submodule ".vim/bundle/closetag"]
-	path = bundle/closetag
-	url = git://github.com/vim-scripts/closetag.vim
-[submodule ".vim/bundle/unimpaired"]
-	path = bundle/unimpaired
-	url = git://github.com/tpope/vim-unimpaired.git
-[submodule ".vim/bundle/matchit"]
-	path = bundle/matchit
-	url = git://github.com/edsono/vim-matchit.git
-[submodule ".vim/bundle/pydoc"]
-	path = bundle/pydoc
-	url = git://github.com/fs111/pydoc.vim.git
 [submodule ".vim/bundle/rails"]
-	path = bundle/rails
-	url = git://github.com/tpope/vim-rails.git
-[submodule ".vim/bundle/cakephp"]
-	path = bundle/cakephp
-	url = git://github.com/ndreynolds/vim-cakephp.git
+	path = .vim/bundle/rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/surround"]
+	path = .vim/bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
 [submodule ".vim/bundle/solarized"]
-	path = bundle/solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
+	path = .vim/bundle/solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/cakephp"]
+	path = .vim/bundle/cakephp
+	url = https://github.com/ndreynolds/vim-cakephp.git
+[submodule ".vim/bundle/pyflakes"]
+	path = .vim/bundle/pyflakes
+	url = https://github.com/kevinw/pyflakes-vim.git
+[submodule ".vim/bundle/pydoc"]
+	path = .vim/bundle/pydoc
+	url = https://github.com/fs111/pydoc.vim.git
