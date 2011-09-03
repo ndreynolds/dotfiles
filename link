@@ -24,7 +24,6 @@ for el in dotfiles:
         if raw_input(msg) == 'y':
             # os.symlink will raise an error if the link path exists.
             # we'll need to delete it first.
-
             # use os.remove on files and links
             if os.path.islink(path) or os.path.isfile(path):
                 os.remove(path)
