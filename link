@@ -16,6 +16,7 @@ home = os.listdir(HOME)
 # needs to be run from dotfiles/
 dotfiles = glob.glob('.*')
 dotfiles.remove('.git')
+dotfiles.remove('.gitmodules')
 
 for el in dotfiles:
     if el in home:
