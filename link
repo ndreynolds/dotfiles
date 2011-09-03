@@ -3,6 +3,8 @@
 # Create symlinks to all the dotfiles in $HOME 
 
 import os
+import shutil
+import glob
 
 HOME = os.getenv('HOME')
 DOTFILES = os.getcwd()
@@ -12,14 +14,25 @@ def link(f):
 
 home = os.listdir(HOME)
 # needs to be run from dotfiles/
-for el in os.listdir('.'):
-    # only dotfiles
-    if el.startswith('.'):
-        if el in home:
-            if raw_input('Linking %s would overwrite the current path. \ 
-                    Continue? (y/N) ' % el) == 'y':
-                link(el)
+dotfiles = glob.glob('.*')
+dotfiles.remove('.git')
+
+for el in dotfiles:
+    if el in home:
+        path = os.path.join(HOME, el)
+        msg = 'Linking %s would overwrite the current path. Delete and continue? (y/N) ' % el
+        if raw_input(msg) == 'y':
+            # os.symlink will raise an error if the link path exists.
+            # we'll need to delete it first.
+
+            # use os.remove on files and links
+            if os.path.islink(path) or os.path.isfile(path):
+                os.remove(path)
+            # and for dirs:
             else:
-                print 'Skipped %s' % el 
-        else:
+                shutil.rmtree(path)
             link(el)
+        else:
+            print 'Skipped %s' % el 
+    else:
+        link(el)

@@ -2,4 +2,21 @@
 	name = Nick Reynolds
 	email = ndreynolds@gmail.com
 [color]
-	ui = true
+    ui = auto
+    diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+    grep = auto
+[merge]
+    tool = vimdiff
+[github]
+	user = ndreynolds
+    token = 
+	name = Nick Reynolds
+	email = ndreynolds@gmail.com
+[fetch]
+    recurseSubmodules = true
+[alias]
+    br = branch
+    co = checkout
