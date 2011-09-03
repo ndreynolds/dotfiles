@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+# Create symlinks to all the dotfiles in $HOME 
+
+import os
+
+HOME = os.getenv('HOME')
+DOTFILES = os.getcwd()
+
+def link(f):
+    os.symlink(os.path.join(DOTFILES, f), os.path.join(HOME, f))
+
+home = os.listdir(HOME)
+# needs to be run from dotfiles/
+for el in os.listdir('.'):
+    # only dotfiles
+    if el.startswith('.'):
+        if el in home:
+            if raw_input('Linking %s would overwrite the current path. \ 
+                    Continue? (y/N) ' % el) == 'y':
+                link(el)
+            else:
+                print 'Skipped %s' % el 
+        else:
+            link(el)
