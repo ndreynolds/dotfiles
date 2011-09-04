@@ -1,3 +1,8 @@
+" Pathogen
+filetype plugin indent on
+call pathogen#infect()
+call pathogen#helptags()
+
 syntax on
 set number
 set tabstop=4
@@ -48,16 +53,17 @@ map <leader>m :Cmodel<CR>
 " Set the status line
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
-" Pathogen
-filetype plugin indent on
-call pathogen#infect()
-call pathogen#helptags()
-
 " Solarized stuff
 syntax enable
 set background=dark
 colorscheme solarized
 set t_Co=16
 
-" Compile coffee-script on write 
-au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+if executable('coffee')
+    " Compile coffee-script on write 
+    au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+endif
+if executable('lessc')
+    " Compile less-css on write
+    au BufWritePost *.less !lessc %:p > %:r.css
+endif
