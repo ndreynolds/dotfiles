@@ -45,6 +45,7 @@ map <leader>v :Cview<CR>
 map <leader>c :Ccontroller<CR>
 map <leader>m :Cmodel<CR>
 
+" Set the status line
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 " Pathogen
