@@ -27,14 +27,14 @@ set hlsearch
 let mapleader = ","
 
 inoremap jj <ESC>
-map <down> <C-w>j
-map <up> <C-w>k
-map <right> <C-w>l
-map <left> <C-w>h
-map <C-j> 4j
-map <C-k> 4k
-map <C-l> 4l
-map <C-h> 4h
+map <down> 4j
+map <up> 4k
+map <right> 4l
+map <left> 4h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l 
+map <C-h> <C-w>h 
 nmap <C-Up> [e
 nmap <C-Down> ]e
 cmap Wq wq
