@@ -47,11 +47,16 @@ map <leader>m :Cmodel<CR>
 
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
+" Pathogen
 filetype plugin indent on
 call pathogen#infect()
 call pathogen#helptags()
 
+" Solarized stuff
 syntax enable
 set background=dark
 colorscheme solarized
 set t_Co=16
+
+" Compile coffee-script on write 
+au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
