@@ -14,3 +14,4 @@ if [ -d "$HOME/bin" ] ; then
 fi
 export PATH=$HOME/local/node/bin:$PATH
 export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules
+export PATH=/home/ndreynolds/dotfiles/bin:/home/ndreynolds/local/node/bin:/home/ndreynolds/local/node/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/var/lib/gems/1.8/bin/:/home/ndreynolds/dotfiles/bin
