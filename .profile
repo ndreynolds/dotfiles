@@ -14,8 +14,10 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # node stuff
-export PATH=$HOME/local/node/bin:$PATH
-export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules
+if [ -d "$HOME/local/node" ] ; then
+    export PATH=$HOME/local/node/bin:$PATH
+    export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules
+fi
 
 # add dotfiles/bin (to end so we don't override anything important)
 export PATH=$PATH:$HOME/dotfiles/bin
