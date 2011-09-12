@@ -1,0 +1,5 @@
+#!/usr/bin/env bash 
+
+# Add ~/dotfiles/bin to the end of $PATH
+echo "export PATH=$PATH:$HOME/dotfiles/bin" >> ~/.profile
+source ~/.profile

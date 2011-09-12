@@ -50,14 +50,14 @@ map <leader>v :Cview<CR>
 map <leader>c :Ccontroller<CR>
 map <leader>m :Cmodel<CR>
 
-" Set the status line
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
-
 " Solarized stuff
 syntax enable
 set background=dark
 colorscheme solarized
 set t_Co=16
+
+" Set the status line
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 if executable('coffee')
     " Compile coffee-script on write 
@@ -67,3 +67,17 @@ if executable('lessc')
     " Compile less-css on write
     au BufWritePost *.less !lessc %:p > %:r.css
 endif
+
+function! s:Nosetests(quiet)
+    exec '! nosetests --where ' . shellescape(expand('%:h')) . ' > /dev/null'
+    if a:quiet
+        redraw!
+    endif
+    if v:shell_error
+        hi! StatusLine term=reverse ctermbg=White ctermfg=DarkRed gui=undercurl guifg=DarkRed
+        set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}
+        set statusline+=%y\ Nose:\ Tests\ Failed\ %=%-16(\ %l,%c-%v\ %)%P
+    endif
+endfunction
+
+command! -n=0 Nose call s:Nosetests(1)
