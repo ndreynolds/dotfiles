@@ -20,3 +20,4 @@
 [alias]
     br = branch
     co = checkout
+    l = log --graph --pretty=oneline --abbrev-commit --decorate
