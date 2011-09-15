@@ -8,14 +8,16 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's private bin if it exists.
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# node stuff
-export PATH=$HOME/local/node/bin:$PATH
-export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules
+# add node to PATH if present. 
+if [-d "$HOME/local/node"] ; then
+    export PATH=$HOME/local/node/bin:$PATH
+    export NODE_PATH=$HOME/local/node:$HOME/local/node/lib/node_modules
+fi
 
 # add dotfiles/bin (to end so we don't override anything important)
 export PATH=$PATH:$HOME/dotfiles/bin

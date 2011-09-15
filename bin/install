@@ -2,4 +2,4 @@
 
 # Add ~/dotfiles/bin to the end of $PATH
 echo "export PATH=$PATH:$HOME/dotfiles/bin" >> ~/.profile
-source ~/.profile
+# At this point, manually source ~/profile, or start a new shell.
