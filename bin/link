@@ -14,8 +14,11 @@ DOTFILES = os.getcwd()
 quiet = '--quiet' in sys.argv
 home = os.listdir(HOME)
 dotfiles = glob.glob('.*')
+
+# We don't want to link these:
 dotfiles.remove('.git')
 dotfiles.remove('.gitmodules')
+dotfiles.remove('.gitignore')
 
 def link(f):
     os.symlink(os.path.join(DOTFILES, f), os.path.join(HOME, f))

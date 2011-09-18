@@ -65,7 +65,7 @@ if executable('coffee')
 endif
 if executable('lessc')
     " Compile less-css on write
-    au BufWritePost *.less !lessc %:p > %:r.css
+    au BufWritePost *.less silent !lessc %:p > %:r.css
 endif
 
 function! s:Nosetests(quiet)
