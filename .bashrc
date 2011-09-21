@@ -107,3 +107,6 @@ if [ -f ~/.profile ]; then
 fi
 
 export PATH=$PATH:/var/lib/gems/1.8/bin/
+
+# tmux color fix
+alias tmux="TERM=screen-256color-bce tmux"
