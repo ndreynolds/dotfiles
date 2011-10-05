@@ -110,3 +110,6 @@ export PATH=$PATH:/var/lib/gems/1.8/bin/
 
 # tmux color fix
 alias tmux="TERM=screen-256color-bce tmux"
+
+# serve the cur dir using python's SimpleHTTP
+alias webshare="python -m SimpleHTTPServer"
