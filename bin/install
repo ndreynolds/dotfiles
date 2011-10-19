@@ -25,13 +25,14 @@ cd ~
 mkdir repos
 mkdir venvs
 mkdir trackers
+cd repos
 
 
 ### Platform-dependent tool installs
 
 # curl if Debian
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install curl
+    sudo apt-get -y -q install curl
 fi
 
 # homebrew if Mac
@@ -41,7 +42,7 @@ fi
 
 # git and git-flow
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install git-core
+    sudo apt-get -y -q install git-core
     wget --no-check-certificate -q -O - https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh | sudo bash
 elif [[ $platform == 'darwin' ]]; then
     brew install git
@@ -50,24 +51,32 @@ fi
 
 # python dev and setuptools if Debian
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install python-dev
-    sudo apt-get install python-setuptools
+    sudo apt-get -y -q install python-dev
+    sudo apt-get -y -q install python-setuptools
 fi
 
-# pip and virtualenv
+# get pip
 sudo easy_install pip
+
+# virtualenv
 sudo pip install virtualenv
+
+# Merucurial (hg)
+sudo pip install Merucurial
+
+# iPython
+sudo pip install ipython
 
 # tmux 
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install tmux
+    sudo apt-get -y -q install tmux
 elif [[ $platform == 'darwin' ]]; then
     brew install tmux
 fi
 
 # Vim if Debian
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install vim
+    sudo apt-get -y -q install vim
 fi
 
 # MacVim if Darwin
@@ -77,7 +86,7 @@ fi
 
 # ruby if Debian
 if [[ $platform == 'linux' && $debian ]]; then
-    sudo apt-get install ruby
+    sudo apt-get -y -q install ruby
 fi
 
 # node and npm
