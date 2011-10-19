@@ -3,6 +3,7 @@ filetype plugin indent on
 call pathogen#infect()
 call pathogen#helptags()
 
+" General vim stuff
 syntax on
 set number
 set tabstop=4
@@ -29,26 +30,35 @@ set incsearch
 set showmatch
 set hlsearch
 
+" Set leader to ,
 let mapleader = ","
 
+" jj has same behavior as <ESC 
 inoremap jj <ESC>
-map <down> 4j
-map <up> 4k
-map <right> 4l
-map <left> 4h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l 
-map <C-h> <C-w>h 
-nmap <C-Up> [e
-nmap <C-Down> ]e
-cmap Wq wq
-cmap W w 
-cmap Q q
-map <leader>t :NERDTreeToggle<CR>
-map <leader>v :Cview<CR>
-map <leader>c :Ccontroller<CR>
-map <leader>m :Cmodel<CR>
+
+" Arrow keys move at turbo speed
+nmap <down> 4j
+nmap <up> 4k
+nmap <right> 4l
+nmap <left> 4h
+
+" CTRL-{j,k,l,h} to switch windows
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l 
+nmap <C-h> <C-w>h 
+
+" Catch accidental uppercase W when quitting
+cnoremap Wq wq
+" cnoremap W w
+
+" Open or close the NERDTree window
+nmap <leader>t :NERDTreeToggle<CR>
+
+" vim-cakephp shortcuts
+nmap <leader>v :Cview<CR>
+nmap <leader>c :Ccontroller<CR>
+nmap <leader>m :Cmodel<CR>
 
 " Solarized stuff
 syntax enable
@@ -59,25 +69,16 @@ set t_Co=16
 " Set the status line
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
+" Fuzzy Finder map
+nmap <leader>f :FufFileWithFullCwd<CR>
+
+" Compile coffee-script on write, if node/coffee is installed.
 if executable('coffee')
-    " Compile coffee-script on write 
     au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 endif
+
+" Compile less-css on write, if node/lessc is installed.
 if executable('lessc')
     " Compile less-css on write
     au BufWritePost *.less silent !lessc %:p > %:r.css
 endif
-
-function! s:Nosetests(quiet)
-    exec '! nosetests --where ' . shellescape(expand('%:h')) . ' > /dev/null'
-    if a:quiet
-        redraw!
-    endif
-    if v:shell_error
-        hi! StatusLine term=reverse ctermbg=White ctermfg=DarkRed gui=undercurl guifg=DarkRed
-        set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}
-        set statusline+=%y\ Nose:\ Tests\ Failed\ %=%-16(\ %l,%c-%v\ %)%P
-    endif
-endfunction
-
-command! -n=0 Nose call s:Nosetests(1)

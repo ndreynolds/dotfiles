@@ -21,3 +21,5 @@ fi
 
 # add dotfiles/bin (to end so we don't override anything important)
 export PATH=$PATH:$HOME/dotfiles/bin
+export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/ndreynolds/dotfiles/bin:/var/lib/gems/1.8/bin/:/home/ndreynolds/dotfiles/bin:/var/lib/gems/1.8/bin/:/home/ndreynolds/dotfiles/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin:/home/ndreynolds/dotfiles/bin

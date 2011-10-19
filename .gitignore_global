@@ -1,0 +1,14 @@
+# Compiled code
+*.o
+*.so
+*.exe
+*.pyc
+*.hk
+
+# Vim
+*.swp
+doc/tags
+doc/tags-ja
+
+# Mac
+.DS_STORE
