@@ -62,7 +62,7 @@ sudo easy_install pip
 sudo pip install virtualenv
 
 # Merucurial (hg)
-sudo pip install Merucurial
+sudo pip install Mercurial
 
 # iPython
 sudo pip install ipython
