@@ -23,4 +23,5 @@
 [alias]
     br = branch
     co = checkout
-    l = log --graph --pretty=oneline --abbrev-commit --decorate
+    l  = log --pretty=format:'%Cred %h %Cgreen %ar %Cblue %an: %Creset %s' --graph
+
