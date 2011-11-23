@@ -21,7 +21,7 @@
 	url = https://github.com/fs111/pydoc.vim.git
 [submodule ".vim/bundle/pyflakes"]
 	path = .vim/bundle/pyflakes
-	url = https://github.com/ndreynolds/pyflakes-vim.git
+	url = https://ndreynolds@github.com/ndreynolds/pyflakes-vim.git
 [submodule ".vim/bundle/coffeescript"]
 	path = .vim/bundle/coffeescript
 	url = https://github.com/kchmck/vim-coffee-script.git

@@ -3,6 +3,10 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# Start tmux
+alias tmux="TERM=screen-256color-bce tmux"
+tmux 2> /dev/null
+
 
 ### HISTORY ###
 
@@ -76,8 +80,8 @@ function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(parse_git_dirty)]/"
 }
 
-ESC="\e[0;0m"
-BOLD="\e[0;1m"
+ESC="\[\e[0;0m\]"
+BOLD="\[\e[0;1m\]"
 export PS1="\u@\h:\w${BOLD}\$(parse_git_branch)${ESC} $ "
 
 
