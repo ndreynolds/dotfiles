@@ -1,9 +1,13 @@
-" Pathogen
+" .vimrc
+" 
+
+" Pathogen ------------------------------------------------------ {{{ 
 filetype plugin indent on
 call pathogen#infect()
 call pathogen#helptags()
+" }}}
 
-" General vim stuff
+" General vim stuff --------------------------------------------- {{{
 syntax on
 set number
 set tabstop=4
@@ -29,11 +33,12 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+set foldmethod=marker
 
 " Set leader to ,
 let mapleader = ","
 
-" jj has same behavior as <ESC 
+" jj has same behavior as <ESC>
 inoremap jj <ESC>
 
 " Arrow keys move at turbo speed
@@ -59,18 +64,22 @@ nmap <leader>t :NERDTreeToggle<CR>
 nmap <leader>v :Cview<CR>
 nmap <leader>c :Ccontroller<CR>
 nmap <leader>m :Cmodel<CR>
+" }}}
 
-" Solarized stuff
+" Solarized stuff ------------------------------------------------ {{{
 syntax enable
 set background=dark
 colorscheme solarized
 set t_Co=16
+" }}}
 
 " Set the status line
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 " Fuzzy Finder map
 nmap <leader>f :FufFileWithFullCwd<CR>
+
+" Node-dependent stuff ------------------------------------------- {{{
 
 " Compile coffee-script on write, if node/coffee is installed.
 if executable('coffee')
@@ -82,7 +91,13 @@ if executable('lessc')
     " Compile less-css on write
     au BufWritePost *.less silent !lessc %:p > %:r.css
 endif
+" }}}
 
 " Highlight lines longer than 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+" For those pesky RO config files:
+cmap w!! w !sudo tee % > /dev/null
+
+au VimResized * exe 'normal! \<c-w>='
