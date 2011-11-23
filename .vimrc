@@ -82,3 +82,7 @@ if executable('lessc')
     " Compile less-css on write
     au BufWritePost *.less silent !lessc %:p > %:r.css
 endif
+
+" Highlight lines longer than 80 chars
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
