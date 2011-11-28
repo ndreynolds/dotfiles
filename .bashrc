@@ -3,10 +3,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# Start tmux
-alias tmux="TERM=screen-256color-bce tmux"
-tmux 2> /dev/null
-
 
 ### HISTORY ###
 
