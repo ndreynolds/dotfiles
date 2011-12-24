@@ -14,6 +14,9 @@ HISTFILESIZE=2000
 
 ### MISC ###
 
+# extended globbing
+shopt -s extglob
+
 # vi mode
 set -o vi
 
