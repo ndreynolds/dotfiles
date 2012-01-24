@@ -64,6 +64,10 @@ nnoremap <c-h> <c-w>h
 " Catch accidental uppercase W when quitting
 cnoremap Wq wq
 
+" No-shift-key-required alternatives
+nnoremap <leader>w :w<cr>
+nnoremap <leader>wq :wq<cr>
+
 " Open or close the NERDTree window
 nnoremap <leader>t :NERDTreeToggle<cr>
 let NERDTreeMinimalUI = 1
@@ -99,7 +103,6 @@ nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
 
 " ctrlp
 nnoremap <leader>p :CtrlP<cr>
-
 " }}}
 
 " Solarized colorscheme ------------------------------------------ {{{
@@ -109,8 +112,9 @@ colorscheme solarized
 set t_Co=16
 " }}}
 
-" Set the status line
+" Status line ---------------------------------------------------- {{{
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+" }}}
 
 " CoffeeScript & LESS -------------------------------------------- {{{
 
