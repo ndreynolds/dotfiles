@@ -34,6 +34,8 @@ set incsearch
 set showmatch
 set hlsearch
 set foldmethod=marker
+
+set noswapfile
 " }}}
 
 " Mappings ------------------------------------------------------- {{{
@@ -43,6 +45,9 @@ let mapleader = ","
 
 " jj has same behavior as <ESC>
 inoremap jj <ESC>
+
+" Make Y behave like C & D
+nnoremap Y y$
 
 " Arrow keys move at turbo speed
 nnoremap <down> 4j
@@ -92,8 +97,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Set current directory to directory of file
 nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
 
-" Fuzzy Finder map
-nnoremap <leader>f :FufFileWithFullCwd<CR>
+" ctrlp
+nnoremap <leader>p :CtrlP<cr>
 
 " }}}
 
