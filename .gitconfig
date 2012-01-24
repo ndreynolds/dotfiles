@@ -4,6 +4,8 @@
 [user]
 	name = Nick Reynolds
 	email = ndreynolds@gmail.com
+[web]
+    browser = google-chrome
 [color]
     ui = auto
     diff = auto
