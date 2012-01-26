@@ -92,6 +92,9 @@ nnoremap <leader>gh :Gbrowse<cr>
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
 
+" Toggle spellcheck
+nnoremap <leader>sp :set spell!<cr>
+
 " Edit vimrc
 nnoremap <leader>ev :split $MYVIMRC<cr>
 
