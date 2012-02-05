@@ -1,13 +1,19 @@
 " .vimrc
-" 
+" Author:     Nick Reynolds <ndreynolds@gmail.com>
+" Repository: http://github.com/ndreynolds/dotfiles
+
 
 " Pathogen ------------------------------------------------------ {{{ 
+
 filetype plugin indent on
 call pathogen#infect()
 call pathogen#helptags()
+
 " }}}
 
+
 " Options ------------------------------------------------------- {{{
+
 syntax on
 set number
 set tabstop=4
@@ -22,6 +28,7 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
+set wildignore+=.git,.svn,.hg,.pyc,.sw?
 set cursorline
 set ttyfast
 set ruler
@@ -36,7 +43,9 @@ set hlsearch
 set foldmethod=marker
 
 set noswapfile
+
 " }}}
+
 
 " Mappings ------------------------------------------------------- {{{
 
@@ -84,10 +93,17 @@ nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>ga :Gadd<cr>
-nnoremap <leader>gci :Gcheckout<cr>
+" (gc is used by TComment)
+nnoremap <leader>go :Gcheckout<cr> 
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gh :Gbrowse<cr>
+
+" Reflow text to 80 cols
+nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
+
+" Give the buffer a header comment
+nnoremap <leader>ti :call HeaderComment()<cr>
 
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
@@ -101,49 +117,118 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Set current directory to directory of file
 nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
 
+" Quick open some URLs.
+nnoremap <leader>og :OpenURL google.com<cr>
+nnoremap <leader>om :OpenURL mail.google.com<cr>
+nnoremap <leader>oh :OpenURL github.com<cr>
+nnoremap <leader>on :OpenURL news.ycombinator.com<cr>
+nnoremap <leader>oc :OpenURL my.cl.ly<cr>
+nnoremap <leader>os :OpenURL grooveshark.com<cr>
+nnoremap <leader>ol :OpenURL localhost<cr>
+
 " ctrlp
-nnoremap <leader>p :CtrlP<cr>
+nnoremap <leader><leader> :CtrlP<cr>
+
 " }}}
 
-" Solarized colorscheme ------------------------------------------ {{{
-syntax enable
-set background=dark
-colorscheme solarized
-set t_Co=16
+
+" Functions ------------------------------------------------------ {{{
+
+" Prepend a header comment with the filename and a dashed line.
+function! HeaderComment()
+    " Prepend the buffer with filename and a dashed line.
+    call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
+    " Comment it out with TComment
+    exe ':1,2 TComment'
+endfunction
+
+" Open a URL using a system-appropriate opener
+function! OpenURL(url)
+    let url = a:url
+    " Prepend http:// if necessary.
+    if url !~ "http://"
+        let url = "http://" . url
+    endif
+    " Mac? Use open.
+    if system("uname") =~ "Darwin"
+        " Run the cmd with a & to take back our prompt.
+        silent call system("open " . url . " &")
+    " Windows?
+    elseif has("win32") || has("win64")
+        silent call system("start " . url)
+    " Some *nix? Does it have xdg-open?
+    elseif has("unix") && executable('xdg-open')
+        silent call system("gnome-open " . url . " &")
+    else
+        echoe "Couldn't find a suitable url opener."
+    endif
+    redraw!
+endfunction
+command! -nargs=1 OpenURL :call OpenURL(<f-args>)
+
 " }}}
 
-" Status line ---------------------------------------------------- {{{
+
+" Statusline ----------------------------------------------------- {{{
+
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+
 " }}}
 
-" CoffeeScript & LESS -------------------------------------------- {{{
 
-" Compile coffee-script on write, if node/coffee is installed.
-if executable('coffee')
-    au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
-endif
-
-" Compile less-css on write, if node/lessc is installed.
-if executable('lessc')
-    " Compile less-css on write
-    au BufWritePost *.less silent !lessc %:p > %:r.css
-endif
-" }}}
+" Misc ----------------------------------------------------------- {{{
 
 " Highlight lines longer than 80 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-" Abbreviations
+" VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Solarized colorscheme stuff
+syntax enable
+set background=dark
+colorscheme solarized
+set t_Co=16
+
+" }}}
+
+
+" Abbreviations -------------------------------------------------- {{{
+
 iabbrev @@ ndreynolds@gmail.com
 iabbrev ndr Nick Reynolds
 
-au VimResized * exe 'normal! \<c-w>='
+" }}}
+
+
+" Event Autocommands --------------------------------------------- {{{
+
+" Compile coffee-script on write, if coffee is executable
+if executable('coffee')
+    au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+endif
+
+" Compile less on write, if lessc is executable
+if executable('lessc')
+    au BufWritePost *.less silent !lessc %:p > %:r.css
+endif
+
+" Save when focus is lost
+au FocusLost * :wa
+
+" Resize splits on window resize
+au VimResized * :wincmd =
+
+" }}}
+
 
 " FileType Autocommands ------------------------------------------ {{{
+
 augroup FTOptions
     autocmd FileType python  setlocal sw=4 sts=4
     autocmd FileType gitcommit,markdown setlocal spell
     autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
+
 " }}}
