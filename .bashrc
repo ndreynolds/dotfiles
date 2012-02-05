@@ -46,7 +46,6 @@ fi
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -64,9 +63,9 @@ function get_time_period {
     fi
 }
 
-echo "--------------------------------"
+echo "--------------------"
 echo "Good $(get_time_period), Nick"
-echo "--------------------------------"
+echo "--------------------"
 
 
 ### PROMPT ###
@@ -81,11 +80,14 @@ function parse_git_branch {
 
 ESC="\[\e[0;0m\]"
 BOLD="\[\e[0;1m\]"
-export PS1="\u@\h:\w${BOLD}\$(parse_git_branch)${ESC} $ "
+BLUE="\[\e[0;34m\]"
+RED="\[\e[0;91m\]"
+export PS1="${BLUE}\w${ESC}${RED}\$(parse_git_branch)${ESC} ${BOLD}ϟ${ESC} "
 
 
 ### ALIASES ###
 
+alias c='clear'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
