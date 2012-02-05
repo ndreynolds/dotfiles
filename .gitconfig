@@ -26,4 +26,7 @@
     br = branch
     co = checkout
     l  = log --pretty=format:'%Cred %h %Cgreen %ar %Cblue %an: %Creset %s' --graph
-
+    s  = status
+    di = diff --cached
+    dw = diff
+    da = diff HEAD
