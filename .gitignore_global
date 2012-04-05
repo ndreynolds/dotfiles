@@ -12,3 +12,4 @@ doc/tags-ja
 
 # Mac
 .DS_STORE
+.htaccess

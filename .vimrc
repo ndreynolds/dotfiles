@@ -108,6 +108,9 @@ nnoremap <leader>ti :call HeaderComment()<cr>
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
 
+" Write file with 'eventignore' set.
+cnoremap w-- noautocmd w
+
 " Toggle spellcheck
 nnoremap <leader>sp :set spell!<cr>
 
@@ -208,14 +211,14 @@ iabbrev ndr Nick Reynolds
 " Event Autocommands --------------------------------------------- {{{
 
 " Compile coffee-script on write, if coffee is executable
-if executable('coffee')
-    au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
-endif
+" if executable('coffee')
+"     au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+" endif
 
 " Compile less on write, if lessc is executable
-if executable('lessc')
-    au BufWritePost *.less silent !lessc %:p > %:r.css
-endif
+" if executable('lessc')
+"     au BufWritePost *.less silent !lessc %:p > %:r.css
+" endif
 
 " Save when focus is lost
 au FocusLost * :wa
@@ -223,13 +226,15 @@ au FocusLost * :wa
 " Resize splits on window resize
 au VimResized * :wincmd =
 
+au BufNewFile,BufRead *.jst set syntax=jst
+
 " }}}
 
 
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-    autocmd FileType python  setlocal sw=4 sts=4
+    autocmd Filetype coffee,ruby,css,html,less,jst setlocal ai et sw=2 sts=2
     autocmd FileType gitcommit,markdown setlocal spell
     autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END

@@ -91,20 +91,21 @@ alias c='clear'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias s='git status'
 # tmux color fix
 alias tmux="TERM=screen-256color-bce tmux"
 # serve the cur dir using python's SimpleHTTP
 alias webshare="python -m SimpleHTTPServer"
 
 
-### PATH ###
+### PATH/SOURCES ###
 
-# add personal bin
-if [ -d ~/dotfiles/bin ]; then
-    export PATH=$PATH:~/dotfiles/bin
+# Check for .bash_local
+if [ -f ~/.bash_local ]; then
+    source ~/.bash_local
 fi
 
-# node
-if [ -d ~/local/node/bin ]; then
-    export PATH=$PATH:~/local/node/bin
+# Add personal bin
+if [ -d ~/dotfiles/bin ]; then
+    export PATH=$PATH:~/dotfiles/bin
 fi
