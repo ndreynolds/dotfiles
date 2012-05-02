@@ -227,6 +227,8 @@ au FocusLost * :wa
 au VimResized * :wincmd =
 
 au BufNewFile,BufRead *.jst set syntax=jst
+au BufNewFile,BufRead *.json set filetype=json
+au BufNewFile,BufRead *.tpl set filetype=html.twig
 
 " }}}
 
@@ -234,7 +236,7 @@ au BufNewFile,BufRead *.jst set syntax=jst
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-    autocmd Filetype coffee,ruby,css,html,less,jst setlocal ai et sw=2 sts=2
+    autocmd Filetype coffee,ruby,css,html,less,jst,json,html.twig setlocal ai et sw=2 sts=2
     autocmd FileType gitcommit,markdown setlocal spell
     autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
