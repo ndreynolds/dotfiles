@@ -168,8 +168,8 @@ function! OpenURL(url)
     elseif has("win32") || has("win64")
         silent call system("start " . url)
     " Some *nix? Does it have xdg-open?
-    elseif has("unix") && executable('xdg-open')
-        silent call system("gnome-open " . url . " &")
+    elseif has("unix") && executable("xdg-open")
+        silent call system("xdg-open " . url . " &")
     else
         echoe "Couldn't find a suitable url opener."
     endif
@@ -232,6 +232,8 @@ au FocusLost * :wa
 au VimResized * :wincmd =
 
 au BufNewFile,BufRead *.jst set syntax=jst
+au BufNewFile,BufRead *.json set filetype=json
+au BufNewFile,BufRead *.tpl set filetype=html.twig
 
 " }}}
 
@@ -239,8 +241,15 @@ au BufNewFile,BufRead *.jst set syntax=jst
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-    autocmd Filetype coffee,ruby,css,javascript,html,less,jst setlocal ai et sw=2 sts=2
-    autocmd FileType gitcommit,markdown setlocal spell
+    autocmd Filetype python                  setlocal ai et sta sw=4 sts=4 tw=79
+    autocmd Filetype c,cpp,cs,java           setlocal ai et sta sw=4 sts=4 cin
+    autocmd Filetype ruby,coffee,javascript  setlocal ai et sta sw=2 sts=2
+    autocmd Filetype css,scss,less           setlocal ai et sta sw=2 sts=2
+    autocmd Filetype jst,eruby,eco,haml      setlocal ai et sta sw=2 sts=2
+    autocmd Filetype html.twig               setlocal ai et sta sw=2 sts=2
+    autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
+    autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
+    autocmd FileType gitcommit,markdown      setlocal spell
     autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
 
