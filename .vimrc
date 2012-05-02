@@ -43,6 +43,11 @@ set hlsearch
 set foldmethod=marker
 
 set noswapfile
+set nobackup
+set nowb
+
+set undodir=~/.vim/backups
+set undofile
 
 " }}}
 
@@ -234,7 +239,7 @@ au BufNewFile,BufRead *.jst set syntax=jst
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-    autocmd Filetype coffee,ruby,css,html,less,jst setlocal ai et sw=2 sts=2
+    autocmd Filetype coffee,ruby,css,javascript,html,less,jst setlocal ai et sw=2 sts=2
     autocmd FileType gitcommit,markdown setlocal spell
     autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
