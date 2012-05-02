@@ -147,33 +147,33 @@ nnoremap <leader><leader> :CtrlP<cr>
 
 " Prepend a header comment with the filename and a dashed line.
 function! HeaderComment()
-    " Prepend the buffer with filename and a dashed line.
-    call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
-    " Comment it out with TComment
-    exe ':1,2 TComment'
+  " Prepend the buffer with filename and a dashed line.
+  call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
+  " Comment it out with TComment
+  exe ':1,2 TComment'
 endfunction
 
 " Open a URL using a system-appropriate opener
 function! OpenURL(url)
-    let url = a:url
-    " Prepend http:// if necessary.
-    if url !~ "http://"
-        let url = "http://" . url
-    endif
-    " Mac? Use open.
-    if system("uname") =~ "Darwin"
-        " Run the cmd with a & to take back our prompt.
-        silent call system("open " . url . " &")
+  let url = a:url
+  " Prepend http:// if necessary.
+  if url !~ "http://"
+    let url = "http://" . url
+  endif
+  " Mac? Use open.
+  if system("uname") =~ "Darwin"
+    " Run the cmd with a & to take back our prompt.
+    silent call system("open " . url . " &")
     " Windows?
-    elseif has("win32") || has("win64")
-        silent call system("start " . url)
+  elseif has("win32") || has("win64")
+    silent call system("start " . url)
     " Some *nix? Does it have xdg-open?
-    elseif has("unix") && executable("xdg-open")
-        silent call system("xdg-open " . url . " &")
-    else
-        echoe "Couldn't find a suitable url opener."
-    endif
-    redraw!
+  elseif has("unix") && executable("xdg-open")
+    silent call system("xdg-open " . url . " &")
+  else
+    echoe "Couldn't find a suitable url opener."
+  endif
+  redraw!
 endfunction
 command! -nargs=1 OpenURL :call OpenURL(<f-args>)
 
@@ -217,12 +217,12 @@ iabbrev ndr Nick Reynolds
 
 " Compile coffee-script on write, if coffee is executable
 " if executable('coffee')
-"     au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+"   au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 " endif
 
 " Compile less on write, if lessc is executable
 " if executable('lessc')
-"     au BufWritePost *.less silent !lessc %:p > %:r.css
+"   au BufWritePost *.less silent !lessc %:p > %:r.css
 " endif
 
 " Save when focus is lost
@@ -241,16 +241,16 @@ au BufNewFile,BufRead *.tpl set filetype=html.twig
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-    autocmd Filetype python                  setlocal ai et sta sw=4 sts=4 tw=79
-    autocmd Filetype c,cpp,cs,java           setlocal ai et sta sw=4 sts=4 cin
-    autocmd Filetype ruby,coffee,javascript  setlocal ai et sta sw=2 sts=2
-    autocmd Filetype css,scss,less           setlocal ai et sta sw=2 sts=2
-    autocmd Filetype jst,eruby,eco,haml      setlocal ai et sta sw=2 sts=2
-    autocmd Filetype html.twig               setlocal ai et sta sw=2 sts=2
-    autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
-    autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
-    autocmd FileType gitcommit,markdown      setlocal spell
-    autocmd FileType help nnoremap <silent><buffer> q :q<CR>
+  autocmd Filetype python                  setlocal ai et sta sw=4 sts=4 tw=79
+  autocmd Filetype c,cpp,cs,java           setlocal ai et sta sw=4 sts=4 cin
+  autocmd Filetype ruby,coffee,javascript  setlocal ai et sta sw=2 sts=2
+  autocmd Filetype css,scss,less           setlocal ai et sta sw=2 sts=2
+  autocmd Filetype jst,eruby,eco,haml      setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html.twig               setlocal ai et sta sw=2 sts=2
+  autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
+  autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
+  autocmd FileType gitcommit,markdown      setlocal spell
+  autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
 
 " }}}
