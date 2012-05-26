@@ -46,8 +46,10 @@ set noswapfile
 set nobackup
 set nowb
 
-set undodir=~/.vim/backups
-set undofile
+if v:version >= 730
+  set undodir=~/.vim/backups
+  set undofile
+endif
 
 " }}}
 
@@ -137,6 +139,9 @@ nnoremap <leader>oc :OpenURL my.cl.ly<cr>
 nnoremap <leader>os :OpenURL grooveshark.com<cr>
 nnoremap <leader>ol :OpenURL localhost<cr>
 
+" Open scratchpad
+nnoremap <leader>p :call OpenScratchpad()<cr>
+
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
 
@@ -144,6 +149,15 @@ nnoremap <leader><leader> :CtrlP<cr>
 
 
 " Functions ------------------------------------------------------ {{{
+
+" Open my scratchpad
+function! OpenScratchpad()
+  if $SCRATCHPAD
+    exe ":Gist " . $SCRATCHPAD
+  else
+    echoe "No $SCRATCHPAD"
+  endif
+endfunction
 
 " Prepend a header comment with the filename and a dashed line.
 function! HeaderComment()
@@ -231,6 +245,7 @@ au FocusLost * :wa
 " Resize splits on window resize
 au VimResized * :wincmd =
 
+" Set syntax for a few template extensions
 au BufNewFile,BufRead *.jst set syntax=jst
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.tpl set filetype=html.twig
@@ -250,7 +265,7 @@ augroup FTOptions
   autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
   autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown      setlocal spell
-  autocmd FileType help nnoremap <silent><buffer> q :q<CR>
+  autocmd FileType help                    nnoremap <silent><buffer> q :q<CR>
 augroup END
 
 " }}}
