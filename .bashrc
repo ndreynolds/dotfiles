@@ -96,6 +96,7 @@ alias s='git status'
 alias tmux="TERM=screen-256color-bce tmux"
 # serve the cur dir using python's SimpleHTTP
 alias webshare="python -m SimpleHTTPServer"
+alias sp='vim -c "OpenScratchpad" -c only'
 
 
 ### PATH/SOURCES ###

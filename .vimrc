@@ -140,7 +140,7 @@ nnoremap <leader>os :OpenURL grooveshark.com<cr>
 nnoremap <leader>ol :OpenURL localhost<cr>
 
 " Open scratchpad
-nnoremap <leader>p :call OpenScratchpad()<cr>
+nnoremap <leader>p :OpenScratchpad<cr>
 
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
@@ -158,6 +158,7 @@ function! OpenScratchpad()
     echoe "No $SCRATCHPAD"
   endif
 endfunction
+command! -nargs=0 OpenScratchpad :call OpenScratchpad()
 
 " Prepend a header comment with the filename and a dashed line.
 function! HeaderComment()
@@ -261,7 +262,7 @@ augroup FTOptions
   autocmd Filetype ruby,coffee,javascript  setlocal ai et sta sw=2 sts=2
   autocmd Filetype css,scss,less           setlocal ai et sta sw=2 sts=2
   autocmd Filetype jst,eruby,eco,haml      setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html.twig               setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html.twig,html          setlocal ai et sta sw=2 sts=2
   autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
   autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown      setlocal spell
