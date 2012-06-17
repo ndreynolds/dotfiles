@@ -217,6 +217,11 @@ set background=dark
 colorscheme solarized
 set t_Co=16
 
+" Make Powerline fancy
+if $POWERLINE_FANCY
+  let g:Powerline_symbols='fancy'
+endif
+
 " }}}
 
 
