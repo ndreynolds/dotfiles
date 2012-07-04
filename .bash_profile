@@ -1,6 +1,6 @@
 # .bash_profile
 
-export PATH=$PATH:/usr/local/bin
+export PATH=/usr/local/bin:$PATH
 
 # Make sure .bashrc gets loaded when SSHing
 if [ -f ~/.bashrc ]; then
