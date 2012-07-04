@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+# Finds words in a file with single occurrences.
+
+import string
+import sys
+
+with open(sys.argv[1]) as grammar:
+    words = sum([line.strip().split(' ') for line in grammar], [])
+
+table = string.maketrans('', '')
+words = [w.translate(table, string.punctuation) for w in words]
+for word in words:
+    if words.count(word) == 1:
+        print word 
