@@ -145,6 +145,12 @@ nnoremap <leader>p :OpenScratchpad<cr>
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
 
+" Pretty print JSON and XML
+nnoremap <leader>j :%!python -m json.tool<cr>
+vnoremap <leader>j :!python -m json.tool<cr>
+nnoremap <leader>x :%!tidy -i -q -asxhtml -utf8<cr>
+vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
+
 " }}}
 
 
@@ -256,22 +262,25 @@ au BufNewFile,BufRead *.jst set syntax=jst
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.tpl set filetype=html.twig
 
+" JSON
+au BufNewFile,BufRead *.json set filetype=javascript
+
 " }}}
 
 
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-  autocmd Filetype python                  setlocal ai et sta sw=4 sts=4 tw=79
-  autocmd Filetype c,cpp,cs,java           setlocal ai et sta sw=4 sts=4 cin
-  autocmd Filetype ruby,coffee,javascript  setlocal ai et sta sw=2 sts=2
-  autocmd Filetype css,scss,less           setlocal ai et sta sw=2 sts=2
-  autocmd Filetype jst,eruby,eco,haml      setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html.twig,html          setlocal ai et sta sw=2 sts=2
-  autocmd Filetype eruby,yaml,json         setlocal ai et sta sw=2 sts=2
-  autocmd Filetype vim                     setlocal ai et sta sw=2 sts=2
-  autocmd FileType gitcommit,markdown      setlocal spell
-  autocmd FileType help                    nnoremap <silent><buffer> q :q<CR>
+  autocmd Filetype python                   setlocal ai et sta sw=4 sts=4 tw=79
+  autocmd Filetype cpp,cs,java              setlocal ai et sta sw=4 sts=4 cin
+  autocmd Filetype c,ruby,coffee,javascript setlocal ai et sta sw=2 sts=2
+  autocmd Filetype css,scss,less            setlocal ai et sta sw=2 sts=2
+  autocmd Filetype jst,eruby,eco,haml       setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html.twig,html           setlocal ai et sta sw=2 sts=2
+  autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
+  autocmd Filetype vim                      setlocal ai et sta sw=2 sts=2
+  autocmd FileType gitcommit,markdown       setlocal spell
+  autocmd FileType help                     nnoremap <silent><buffer> q :q<CR>
 augroup END
 
 " }}}
