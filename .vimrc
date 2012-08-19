@@ -70,6 +70,12 @@ nnoremap <down> 4j
 nnoremap <up> 4k
 nnoremap <right> 4l
 nnoremap <left> 4h
+nnoremap <down> 4j
+vnoremap <down> 4j
+vnoremap <up> 4k
+vnoremap <right> 4l
+vnoremap <left> 4h
+vnoremap <down> 4j
 
 " CTRL-{j,k,l,h} to switch windows
 nnoremap <c-j> <c-w>j
@@ -137,7 +143,13 @@ nnoremap <leader>oh :OpenURL github.com<cr>
 nnoremap <leader>on :OpenURL news.ycombinator.com<cr>
 nnoremap <leader>oc :OpenURL my.cl.ly<cr>
 nnoremap <leader>os :OpenURL grooveshark.com<cr>
+nnoremap <leader>ov :OpenURL tnerual.eriogerg.free.fr/vimqrc.html<cr>
 nnoremap <leader>ol :OpenURL localhost<cr>
+
+" Copy to Mac clipboard (if on a Mac and not in MacVim)
+if system("uname") =~ "Darwin" && !has("gui_running")
+  vnoremap "+y !pbcopy<cr>u
+endif
 
 " Open scratchpad
 nnoremap <leader>p :OpenScratchpad<cr>
@@ -264,6 +276,9 @@ au BufNewFile,BufRead *.tpl set filetype=html.twig
 
 " JSON
 au BufNewFile,BufRead *.json set filetype=javascript
+
+" Header files should assume C (most likely for me)
+au BufNewFile,BufRead *.h set filetype=c
 
 " }}}
 
