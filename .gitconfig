@@ -29,3 +29,4 @@
     di = diff --cached
     dw = diff
     da = diff HEAD
+    todo = grep -n "TODO"
