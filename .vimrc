@@ -52,6 +52,8 @@ if v:version >= 730
   set undofile
 endif
 
+let g:syntastic_javascript_checker = 'jshint'
+
 " }}}
 
 
@@ -92,7 +94,7 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>wq :wq<cr>
 
 " Open or close the NERDTree window
-nnoremap <leader>t :NERDTreeToggle<cr>
+nnoremap <leader>tt :NERDTreeToggle<cr>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeHighlightCursorLine = 1
@@ -129,7 +131,7 @@ cnoremap w-- noautocmd w
 nnoremap <leader>sp :set spell!<cr>
 
 " Edit vimrc
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<cr>
 
 " Source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -216,7 +218,7 @@ command! -nargs=1 OpenURL :call OpenURL(<f-args>)
 
 " Statusline ----------------------------------------------------- {{{
 
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{SyntasticStatuslineFlag()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 " }}}
 
