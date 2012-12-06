@@ -2,31 +2,35 @@
     editor = vim
     excludesfile= ~/.gitignore_global
 [user]
-	name = Nick Reynolds
-	email = ndreynolds@gmail.com
+    name = Nick Reynolds
+    email = ndreynolds@gmail.com
 [web]
     browser = google-chrome
 [color]
     ui = auto
     diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+    status = auto
+    branch = auto
+    interactive = auto
     grep = auto
+[diff]
+    mnemoicprefix = true
+    renames = copies
 [merge]
     tool = vimdiff
 [github]
-	user = ndreynolds
-	name = Nick Reynolds
-	email = ndreynolds@gmail.com
+    user = ndreynolds
+    name = Nick Reynolds
+    email = ndreynolds@gmail.com
 [fetch]
     recurseSubmodules = true
 [alias]
     br = branch
     co = checkout
     l  = log --pretty=format:'%Cred %h %Cgreen %ar %Cblue %an: %Creset %s' --graph
-    s  = status
+    s  = status -sb
     di = diff --cached
     dw = diff
     da = diff HEAD
-    todo = grep -n "TODO"
+    todo = grep -n -E "(TODO|FIXME)"
+    search = !sh -c 'git log -G$1 --all' -

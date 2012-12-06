@@ -53,6 +53,7 @@ if v:version >= 730
 endif
 
 let g:syntastic_javascript_checker = 'jshint'
+let g:tex_flavor='latex'
 
 " }}}
 
@@ -79,6 +80,9 @@ vnoremap <up> 4k
 vnoremap <right> 4l
 vnoremap <left> 4h
 vnoremap <down> 4j
+
+" Stop vim-latex from stealing <c-j> 
+nnoremap <leader>m <Plug>IMAP_JumpForward
 
 " CTRL-{j,k,l,h} to switch windows
 nnoremap <c-j> <c-w>j
@@ -165,6 +169,9 @@ nnoremap <leader>j :%!python -m json.tool<cr>
 vnoremap <leader>j :!python -m json.tool<cr>
 nnoremap <leader>x :%!tidy -i -q -asxhtml -utf8<cr>
 vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
+
+" Underline a heading
+nnoremap <leader>u yyp<c-v>$r-
 
 " }}}
 
@@ -277,6 +284,8 @@ au BufNewFile,BufRead *.jst set syntax=jst
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.tpl set filetype=html.twig
 
+au BufNewFile,BufRead *.txt set filetype=markdown
+
 " JSON
 au BufNewFile,BufRead *.json set filetype=javascript
 
@@ -296,7 +305,7 @@ augroup FTOptions
   autocmd Filetype jst,eruby,eco,haml       setlocal ai et sta sw=2 sts=2
   autocmd Filetype html.twig,html           setlocal ai et sta sw=2 sts=2
   autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
-  autocmd Filetype vim                      setlocal ai et sta sw=2 sts=2
+  autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
   autocmd FileType help                     nnoremap <silent><buffer> q :q<CR>
 augroup END
