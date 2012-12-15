@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Based on oh-my-zsh's update script.
+
+function _current_epoch() {
+  echo $(($(date +%s) / 60 / 60 / 24))
+}
+
+function _store_epoch() {
+  echo "LAST_EPOCH=$(_current_epoch)" > ~/.dotfiles-update
+}
+
+function _do_update() {
+  cd ~/dotfiles
+  git stash
+  git checkout master
+  git pull origin master
+  git checkout -
+  git stash pop -q
+  echo "---------------"
+  echo "Update complete"
+  echo "---------------"
+}
+
+epoch_target=$UPDATE_DOTFILES_DAYS
+if [[ -z "$epoch_target" ]]; then
+  # Default to old behavior
+  epoch_target=13
+fi
+
+if [ -f ~/.dotfiles-update ]
+then
+  . ~/.dotfiles-update
+
+  if [[ -z "$LAST_EPOCH" ]]; then
+    _store_epoch && return 0;
+  fi
+
+  epoch_diff=$(($(_current_epoch) - $LAST_EPOCH))
+  if [ $epoch_diff -gt $epoch_target ]
+  then
+    echo "[dotfiles] Would you like to check for updates?"
+    echo "Type Y to update: \c"
+    read line
+    if [ "$line" = Y ] || [ "$line" = y ]; then
+      _do_update
+      _store_epoch
+    fi
+  fi
+else
+  _store_epoch
+fi

@@ -110,3 +110,8 @@ fi
 if [ -d ~/dotfiles/bin ]; then
     export PATH=$PATH:~/dotfiles/bin
 fi
+
+# Check for updates
+if [ -f ~/dotfiles/bin/update ]; then
+  ~/dotfiles/bin/update
+fi
