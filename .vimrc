@@ -43,14 +43,31 @@ set showmatch
 set hlsearch
 set foldmethod=marker
 
-set noswapfile
-set nobackup
-set nowb
 
-if v:version >= 730
-  set undodir=~/.vim/backups
+" Store swap, backup and undo files within .vim/ 
+" Make the directories as needed.
+
+if isdirectory($HOME . '/.vim/swap') == 0
+  :silent !mkdir -p ~/.vim/swap > /dev/null 2>&1
+endif
+set dir=~/.vim/swap
+
+if isdirectory($HOME . '/.vim/backup') == 0
+  :silent !mkdir -p ~/.vim/backup > /dev/null 2>&1
+endif
+set backupdir=~/.vim/backup
+set backup
+
+if exists("+undofile")
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=~/.vim/undo
   set undofile
 endif
+
+
+" Plugin options
 
 let g:syntastic_javascript_checker = 'jshint'
 let g:tex_flavor='latex'
