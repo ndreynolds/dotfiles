@@ -190,6 +190,11 @@ vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
 " Underline a heading
 nnoremap <leader>u yyp<c-v>$r-
 
+" * and # in visual mode search for the selection (from Practical Vim)
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR> 
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+
+
 " }}}
 
 
@@ -236,6 +241,13 @@ function! OpenURL(url)
   redraw!
 endfunction
 command! -nargs=1 OpenURL :call OpenURL(<f-args>)
+
+function! s:VSetSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g') let @s = temp
+endfunction
+
 
 " }}}
 
