@@ -4,6 +4,8 @@
 [user]
     name = Nick Reynolds
     email = ndreynolds@gmail.com
+[init]
+    templatedir = ~/.git_template
 [web]
     browser = google-chrome
 [color]
@@ -34,3 +36,5 @@
     da = diff HEAD
     todo = grep -n -E "(TODO|FIXME)"
     search = !sh -c 'git log -G$1 --all' -
+[push]
+    default = simple
