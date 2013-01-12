@@ -61,3 +61,12 @@
 [submodule ".vim/bundle/omnicppcomplete"]
 	path = .vim/bundle/omnicppcomplete
 	url = https://github.com/vim-scripts/OmniCppComplete.git
+[submodule ".vim/bundle/stylus"]
+	path = .vim/bundle/stylus
+	url = https://github.com/wavded/vim-stylus
+[submodule ".vim/bundle/jade"]
+	path = .vim/bundle/jade
+	url = git://github.com/digitaltoad/vim-jade.git
+[submodule ".vim/bundle/renamer"]
+	path = .vim/bundle/renamer
+	url = git://github.com/vim-scripts/renamer.vim.git
