@@ -204,6 +204,7 @@ xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
 function! OpenScratchpad()
   if $SCRATCHPAD
     exe ":Gist " . $SCRATCHPAD
+    au! BufLeave,FocusLost * silent! wall
   else
     echoe "No $SCRATCHPAD"
   endif
@@ -270,7 +271,12 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Solarized colorscheme stuff
 syntax enable
-set background=dark
+if $ITERM_PROFILE == 'SolarizedLight'
+  set background=light
+else
+  set background=dark
+endif
+
 colorscheme solarized
 set t_Co=16
 
@@ -303,7 +309,7 @@ iabbrev ndr Nick Reynolds
 " endif
 
 " Save when focus is lost
-au FocusLost * :wa
+"au FocusLost * :wa
 
 " Resize splits on window resize
 au VimResized * :wincmd =
@@ -332,7 +338,7 @@ augroup FTOptions
   autocmd Filetype c,ruby,coffee,javascript setlocal ai et sta sw=2 sts=2
   autocmd Filetype css,scss,less            setlocal ai et sta sw=2 sts=2
   autocmd Filetype jst,eruby,eco,haml       setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html.twig,html           setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html.twig,html,jade      setlocal ai et sta sw=2 sts=2
   autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
   autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
