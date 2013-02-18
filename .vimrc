@@ -72,6 +72,33 @@ endif
 let g:syntastic_javascript_checker = 'jshint'
 let g:tex_flavor='latex'
 
+" Make Powerline fancy
+if $POWERLINE_FANCY
+  let g:Powerline_symbols='fancy'
+endif
+
+" Set git exec path 
+"
+" `push.default = simple` breaks with Apple Git 1.7
+" Try to find and use 1.8
+if filereadable('/usr/local/bin/git')
+  let g:fugitive_git_executable = '/usr/local/bin/git'
+endif
+
+" Solarized colorscheme stuff
+"
+" Set background based on iTerm profile env var (when present)
+if $ITERM_PROFILE == 'SolarizedLight'
+  set background=light
+else
+  set background=dark
+endif
+
+syntax enable
+colorscheme solarized
+set t_Co=16
+
+
 " }}}
 
 
@@ -135,6 +162,9 @@ nnoremap <leader>go :Gcheckout<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gh :Gbrowse<cr>
+
+" EasyMotion
+let g:EasyMotion_leader_key = '<leader><space>'
 
 " Reflow text to 80 cols
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
@@ -204,6 +234,7 @@ xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
 function! OpenScratchpad()
   if $SCRATCHPAD
     exe ":Gist " . $SCRATCHPAD
+    au! BufLeave,FocusLost * silent! wall
   else
     echoe "No $SCRATCHPAD"
   endif
@@ -268,17 +299,6 @@ match OverLength /\%81v.\+/
 " VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" Solarized colorscheme stuff
-syntax enable
-set background=dark
-colorscheme solarized
-set t_Co=16
-
-" Make Powerline fancy
-if $POWERLINE_FANCY
-  let g:Powerline_symbols='fancy'
-endif
-
 " }}}
 
 
@@ -286,6 +306,7 @@ endif
 
 iabbrev @@ ndreynolds@gmail.com
 iabbrev ndr Nick Reynolds
+iabbrev <expr> dts strftime("%c")
 
 " }}}
 
@@ -303,7 +324,7 @@ iabbrev ndr Nick Reynolds
 " endif
 
 " Save when focus is lost
-au FocusLost * :wa
+"au FocusLost * :wa
 
 " Resize splits on window resize
 au VimResized * :wincmd =
@@ -332,11 +353,13 @@ augroup FTOptions
   autocmd Filetype c,ruby,coffee,javascript setlocal ai et sta sw=2 sts=2
   autocmd Filetype css,scss,less            setlocal ai et sta sw=2 sts=2
   autocmd Filetype jst,eruby,eco,haml       setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html.twig,html           setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html,xhtml               setlocal ai et sta sw=2 sts=2
+  autocmd Filetype html.twig,jade           setlocal ai et sta sw=2 sts=2
   autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
   autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
+  autocmd FileType crontab                  set nobackup nowritebackup
   autocmd FileType help                     nnoremap <silent><buffer> q :q<CR>
 augroup END
 

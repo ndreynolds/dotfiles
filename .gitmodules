@@ -61,3 +61,24 @@
 [submodule ".vim/bundle/omnicppcomplete"]
 	path = .vim/bundle/omnicppcomplete
 	url = https://github.com/vim-scripts/OmniCppComplete.git
+[submodule ".vim/bundle/stylus"]
+	path = .vim/bundle/stylus
+	url = https://github.com/wavded/vim-stylus
+[submodule ".vim/bundle/jade"]
+	path = .vim/bundle/jade
+	url = git://github.com/digitaltoad/vim-jade.git
+[submodule ".vim/bundle/renamer"]
+	path = .vim/bundle/renamer
+	url = git://github.com/vim-scripts/renamer.vim.git
+[submodule ".vim/bundle/web-indent"]
+	path = .vim/bundle/web-indent
+	url = https://github.com/lukaszb/vim-web-indent.git
+[submodule ".vim/bundle/snipmate"]
+	path = .vim/bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule ".vim/bundle/you-complete-me"]
+	path = .vim/bundle/you-complete-me
+	url = git://github.com/Valloric/YouCompleteMe.git
+[submodule ".vim/bundle/easymotion"]
+	path = .vim/bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git

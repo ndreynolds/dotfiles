@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Open a document url in Google Drive
+
+open "http://docs.google.com/gview?url=$1"
