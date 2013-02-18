@@ -37,4 +37,6 @@
     todo = grep -n -E "(TODO|FIXME)"
     search = !sh -c 'git log -G$1 --all' -
 [push]
-    default = simple
+    default = upstream
+[include]
+    path = ~/.gitconfig_local
