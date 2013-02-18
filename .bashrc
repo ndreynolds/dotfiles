@@ -113,5 +113,5 @@ fi
 
 # Check for updates
 if [ -f ~/dotfiles/bin/update ]; then
-  ~/dotfiles/bin/update
+  ~/dotfiles/bin/dotfiles-update
 fi
