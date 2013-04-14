@@ -14,17 +14,16 @@ alias la='ls -A'
 alias l='ls -CF'
 alias s='git status'
 
-# tmux color fix
 alias tmux='TERM=screen-256color-bce tmux'
-
-# serve the cur dir using python's SimpleHTTP
-alias webshare='python -m SimpleHTTPServer'
+alias serve='python -m SimpleHTTPServer'
 alias sp='vim ~/repos/scratchpad/scratchpad.md'
 alias splive='vim -c "OpenScratchpad" -c only'
+alias journal='vim "$HOME/repos/journal/$(date "+%Y-%m-%d").md"'
 
 # Plugins
 # -------
-plugins=(git git-flow github brew ruby bundler cloudapp npm pip vi-mode)
+plugins=(git git-extras git-flow github brew ruby rails3 bundler 
+         cloudapp npm pip vi-mode)
 
 # $PATH
 # -----

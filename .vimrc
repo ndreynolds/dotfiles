@@ -356,6 +356,7 @@ augroup FTOptions
   autocmd Filetype html,xhtml               setlocal ai et sta sw=2 sts=2
   autocmd Filetype html.twig,jade           setlocal ai et sta sw=2 sts=2
   autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
+  autocmd Filetype cucumber                 setlocal ai et sta sw=2 sts=2
   autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
