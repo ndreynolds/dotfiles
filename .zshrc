@@ -23,7 +23,7 @@ alias journal='vim "$HOME/repos/journal/$(date "+%Y-%m-%d").md"'
 # Plugins
 # -------
 plugins=(git git-extras git-flow github brew ruby rails3 bundler 
-         cloudapp npm pip vi-mode)
+         cloudapp npm pip vi-mode vagrant)
 
 # $PATH
 # -----

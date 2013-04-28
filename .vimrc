@@ -191,6 +191,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
 
 " Quick open some URLs.
+nnoremap <leader>ox :OpenURLAtCursor<cr>
+vnoremap <leader>ox :OpenURLAtCursor<cr>
 nnoremap <leader>og :OpenURL google.com<cr>
 nnoremap <leader>om :OpenURL mail.google.com<cr>
 nnoremap <leader>oh :OpenURL github.com<cr>
@@ -221,8 +223,16 @@ vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
 nnoremap <leader>u yyp<c-v>$r-
 
 " * and # in visual mode search for the selection (from Practical Vim)
-xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR> 
-xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+xnoremap * :<c-u>call <sid>VSetSearch()<cr>/<c-r>=@/<cr><cr> 
+xnoremap # :<c-u>call <sid>VSetSearch()<cr>?<c-r>=@/<cr><cr>
+
+" Tabularize shortcuts
+nmap <leader>a= :Tabularize /=<cr>
+vmap <leader>a= :Tabularize /=<cr>
+nmap <leader>a: :Tabularize /:\zs<cr>
+vmap <leader>a: :Tabularize /:\zs<cr>
+nmap <leader>ac :Tabularize /,\zs \+/<cr>
+vmap <leader>ac :Tabularize /,\zs \+/<cr>
 
 
 " }}}
@@ -239,7 +249,7 @@ function! OpenScratchpad()
     echoe "No $SCRATCHPAD"
   endif
 endfunction
-command! -nargs=0 OpenScratchpad :call OpenScratchpad()
+command! OpenScratchpad call OpenScratchpad()
 
 " Prepend a header comment with the filename and a dashed line.
 function! HeaderComment()
@@ -252,26 +262,53 @@ endfunction
 " Open a URL using a system-appropriate opener
 function! OpenURL(url)
   let url = a:url
-  " Prepend http:// if necessary.
   if url !~ "http://"
     let url = "http://" . url
   endif
-  " Mac? Use open.
-  if system("uname") =~ "Darwin"
-    " Run the cmd with a & to take back our prompt.
+
+  " Mac?
+  if system("uname") =~ "Darwin" " Mac ?
     silent call system("open " . url . " &")
-    " Windows?
+  " Windows?
   elseif has("win32") || has("win64")
     silent call system("start " . url)
-    " Some *nix? Does it have xdg-open?
+  " Some *nix? Does it have xdg-open?
   elseif has("unix") && executable("xdg-open")
     silent call system("xdg-open " . url . " &")
   else
     echoe "Couldn't find a suitable url opener."
   endif
+
   redraw!
 endfunction
-command! -nargs=1 OpenURL :call OpenURL(<f-args>)
+command! -nargs=1 OpenURL call OpenURL(<f-args>)
+
+" Open a URL that's under the cursor or visually selected
+function! OpenURLAtCursor()
+  if mode() ==# 'n'
+    let uri = expand("<cWORD>")
+    if match(uri, "://")
+      let uri = expand("<cfile>")
+    endif
+  else
+    let uri = s:GetSelectedText()
+  endif
+
+  call OpenURL(uri)
+endfunction
+command! -bar OpenURLAtCursor call OpenURLAtCursor(<f-args>)
+
+function! s:GetSelectedText()
+  let save_z = getreg('z', 1)
+  let save_z_type = getregtype('z')
+
+  try
+    normal! gv"zy
+    return @z
+  finally
+    call setreg('z', save_z, save_z_type)
+  endtry
+endfunction
 
 function! s:VSetSearch()
   let temp = @s
@@ -361,7 +398,7 @@ augroup FTOptions
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
   autocmd FileType crontab                  set nobackup nowritebackup
-  autocmd FileType help                     nnoremap <silent><buffer> q :q<CR>
+  autocmd FileType help                     nnoremap <silent><buffer> q :q<cr>
 augroup END
 
 " }}}
