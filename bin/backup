@@ -37,7 +37,7 @@ elif [ "$1" == "sync" ]; then
   done
 
   duplicity $INCLUDES --exclude '**' --exclude '/.*' --volsize 250 \
-    --full-if-older-than 30D / "s3+http://$DUPLICITY_BUCKET_ID" 
+    --allow-source-mismatch --full-if-older-than 30D / "s3+http://$DUPLICITY_BUCKET_ID" 
 
 else
 
