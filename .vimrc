@@ -70,6 +70,7 @@ endif
 " Plugin options
 
 let g:syntastic_javascript_checker = 'jshint'
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:tex_flavor='latex'
 
 " Make Powerline fancy
@@ -134,8 +135,13 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l 
 nnoremap <c-h> <c-w>h 
 
-" Catch accidental uppercase W when quitting
-cnoremap Wq wq
+" Catch accidental shift keys
+command! -bang -nargs=* -complete=file E e<bang> <args>
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang -nargs=* -complete=file Q q<bang> <args>
+command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
 
 " No-shift-key-required alternatives
 nnoremap <leader>w :w<cr>
@@ -227,12 +233,12 @@ xnoremap * :<c-u>call <sid>VSetSearch()<cr>/<c-r>=@/<cr><cr>
 xnoremap # :<c-u>call <sid>VSetSearch()<cr>?<c-r>=@/<cr><cr>
 
 " Tabularize shortcuts
-nmap <leader>a= :Tabularize /=<cr>
-vmap <leader>a= :Tabularize /=<cr>
-nmap <leader>a: :Tabularize /:\zs<cr>
-vmap <leader>a: :Tabularize /:\zs<cr>
-nmap <leader>ac :Tabularize /,\zs \+/<cr>
-vmap <leader>ac :Tabularize /,\zs \+/<cr>
+nnoremap <leader>a= :Tabularize /=<cr>
+vnoremap <leader>a= :Tabularize /=<cr>
+nnoremap <leader>a: :Tabularize /:\zs<cr>
+vnoremap <leader>a: :Tabularize /:\zs<cr>
+nnoremap <leader>ac :Tabularize /,\zs\+/<cr>
+vnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 
 
 " }}}
@@ -313,7 +319,8 @@ endfunction
 function! s:VSetSearch()
   let temp = @s
   norm! gv"sy
-  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g') let @s = temp
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g') 
+  let @s = temp
 endfunction
 
 

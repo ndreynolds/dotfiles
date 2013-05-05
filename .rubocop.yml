@@ -1,0 +1,6 @@
+Encoding:
+  Enabled: false   # UTF-8, sure, but don't require comment
+
+LineLength:
+  Enabled: true
+  Max: 85
