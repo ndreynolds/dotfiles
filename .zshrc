@@ -25,6 +25,11 @@ alias journal='vim "$HOME/repos/journal/$(date "+%Y-%m-%d").md"'
 plugins=(git git-extras git-flow github brew ruby rails3 bundler 
          cloudapp npm pip vi-mode vagrant)
 
+# Env
+# ---
+export EDITOR=vim
+export VISUAL=vim
+
 # $PATH
 # -----
 # Basics + dotfiles scripts. Others (npm, rvm, etc.) should be added in .zsh_local
