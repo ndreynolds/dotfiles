@@ -71,7 +71,18 @@ endif
 
 let g:syntastic_javascript_checker = 'jshint'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
 let g:tex_flavor='latex'
+
+if has('unix') && system('uname') =~ 'Darwin'
+  function! BuildTermCmd(cmd)
+    return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
+  endfunction
+
+"  let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
+"  let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
+endif
+
 
 " Make Powerline fancy
 if $POWERLINE_FANCY
@@ -240,6 +251,9 @@ vnoremap <leader>a: :Tabularize /:\zs<cr>
 nnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 vnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 
+" Rspec with Dispatch
+nnoremap <leader>r :Dispatch rspec %<cr>
+
 
 " }}}
 
@@ -323,6 +337,12 @@ function! s:VSetSearch()
   let @s = temp
 endfunction
 
+function! s:ReloadChrome()
+  if exists('g:autoloaded_rails')
+    silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt ")
+  endif
+endfunction
+
 
 " }}}
 
@@ -357,19 +377,6 @@ iabbrev <expr> dts strftime("%c")
 
 " Event Autocommands --------------------------------------------- {{{
 
-" Compile coffee-script on write, if coffee is executable
-" if executable('coffee')
-"   au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
-" endif
-
-" Compile less on write, if lessc is executable
-" if executable('lessc')
-"   au BufWritePost *.less silent !lessc %:p > %:r.css
-" endif
-
-" Save when focus is lost
-"au FocusLost * :wa
-
 " Resize splits on window resize
 au VimResized * :wincmd =
 
@@ -385,6 +392,10 @@ au BufNewFile,BufRead *.json set filetype=javascript
 
 " Header files should assume C (most likely for me)
 au BufNewFile,BufRead *.h set filetype=c
+
+if executable("osascript")
+  au BufWritePost * call s:ReloadChrome()
+endif
 
 " }}}
 
