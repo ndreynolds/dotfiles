@@ -20,6 +20,10 @@ alias sp='vim ~/repos/scratchpad/scratchpad.md'
 alias splive='vim -c "OpenScratchpad" -c only'
 alias journal='vim "$HOME/repos/journal/$(date "+%Y-%m-%d").md"'
 
+# Key Bindings
+# ------------
+bindkey "^R" history-incremental-search-backward
+
 # Plugins
 # -------
 plugins=(git git-extras git-flow github brew ruby rails3 bundler 

@@ -1,3 +1,6 @@
-tell application "Google Chrome" to tell the active tab of its first window
-    reload
+tell application "Google Chrome" 
+    set activeURL to URL of active tab of first window as text
+    if activeURL contains "localhost" then
+        tell active tab of first window to reload
+    end if
 end tell

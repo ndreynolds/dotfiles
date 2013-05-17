@@ -150,6 +150,7 @@ nnoremap <c-h> <c-w>h
 command! -bang -nargs=* -complete=file E e<bang> <args>
 command! -bang -nargs=* -complete=file W w<bang> <args>
 command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file Wqa wqa<bang> <args>
 command! -bang -nargs=* -complete=file WQ wq<bang> <args>
 command! -bang -nargs=* -complete=file Q q<bang> <args>
 command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
