@@ -3,11 +3,59 @@
 " Repository: http://github.com/ndreynolds/dotfiles
 
 
-" Pathogen ------------------------------------------------------ {{{ 
+" Vundle -------------------------------------------------------- {{{ 
+
+set nocompatible
+filetype off
+
+let s:needs_vundle = !isdirectory($HOME . '/.vim/bundle/vundle')
+if s:needs_vundle
+  echo "-------------------------------"
+  echo "Installing Vundle... Sit tight."
+  echo "-------------------------------\n"
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+endif
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'briancollins/vim-jst'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'godlygeek/tabular'
+Bundle 'groenewege/vim-less'
+Bundle 'jcf/vim-latex'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'lukaszb/vim-web-indent'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'msanders/snipmate.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/renamer.vim'
+Bundle 'vim-scripts/slimv.vim'
+Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
-call pathogen#infect()
-call pathogen#helptags()
+
+if s:needs_vundle
+  :BundleInstall
+endif
 
 " }}}
 
