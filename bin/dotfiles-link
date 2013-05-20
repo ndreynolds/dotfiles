@@ -17,7 +17,6 @@ dotfiles = glob.glob('.*')
 
 # We don't want to link these:
 dotfiles.remove('.git')
-dotfiles.remove('.gitmodules')
 dotfiles.remove('.gitignore')
 
 def link(f):
