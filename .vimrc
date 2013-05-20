@@ -170,6 +170,11 @@ nnoremap <leader>cv :Cview<cr>
 nnoremap <leader>cc :Ccontroller<cr>
 nnoremap <leader>cm :Cmodel<cr>
 
+" vim-rails shortcuts
+nnoremap <leader>rv :Rview<cr>
+nnoremap <leader>rc :Rcontroller<cr>
+nnoremap <leader>rm :Rmodel<cr>
+
 " fugitive shortcuts
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
