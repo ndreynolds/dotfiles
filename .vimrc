@@ -3,11 +3,59 @@
 " Repository: http://github.com/ndreynolds/dotfiles
 
 
-" Pathogen ------------------------------------------------------ {{{ 
+" Vundle & Plugins ---------------------------------------------- {{{ 
+
+set nocompatible
+filetype off
+
+let s:needs_vundle = !isdirectory($HOME . '/.vim/bundle/vundle')
+if s:needs_vundle
+  echo "-------------------------------"
+  echo "Installing Vundle... Sit tight."
+  echo "-------------------------------\n"
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+endif
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'briancollins/vim-jst'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'godlygeek/tabular'
+Bundle 'groenewege/vim-less'
+Bundle 'jcf/vim-latex'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'lukaszb/vim-web-indent'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'msanders/snipmate.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/renamer.vim'
+Bundle 'vim-scripts/slimv.vim'
+Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
-call pathogen#infect()
-call pathogen#helptags()
+
+if s:needs_vundle
+  :BundleInstall
+endif
 
 " }}}
 
@@ -47,42 +95,44 @@ set foldmethod=marker
 " Store swap, backup and undo files within .vim/ 
 " Make the directories as needed.
 
-if isdirectory($HOME . '/.vim/swap') == 0
+if !isdirectory($HOME . '/.vim/swap')
   :silent !mkdir -p ~/.vim/swap > /dev/null 2>&1
 endif
 set dir=~/.vim/swap
 
-if isdirectory($HOME . '/.vim/backup') == 0
+if !isdirectory($HOME . '/.vim/backup')
   :silent !mkdir -p ~/.vim/backup > /dev/null 2>&1
 endif
 set backupdir=~/.vim/backup
 set backup
 
 if exists("+undofile")
-  if isdirectory($HOME . '/.vim/undo') == 0
+  if !isdirectory($HOME . '/.vim/undo')
     :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
   endif
   set undodir=~/.vim/undo
   set undofile
 endif
 
+" }}}
 
-" Plugin options
+
+" Plugin Configuration ------------------------------------------- {{{
 
 let g:syntastic_javascript_checker = 'jshint'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
 let g:tex_flavor='latex'
 
+" Slimv servers
 if has('unix') && system('uname') =~ 'Darwin'
   function! BuildTermCmd(cmd)
     return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
   endfunction
 
-"  let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
-"  let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
+  let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
+  let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
 endif
-
 
 " Make Powerline fancy
 if $POWERLINE_FANCY
@@ -97,19 +147,25 @@ if filereadable('/usr/local/bin/git')
   let g:fugitive_git_executable = '/usr/local/bin/git'
 endif
 
-" Solarized colorscheme stuff
+
+" Solarized colorscheme
 "
-" Set background based on iTerm profile env var (when present)
-if $ITERM_PROFILE == 'SolarizedLight'
-  set background=light
-else
-  set background=dark
+" Only active if within the matching $ITERM_PROFILE.
+if $ITERM_PROFILE == 'SolarizedLight' || $ITERM_PROFILE == 'SolarizedDark'
+  if $ITERM_PROFILE == 'SolarizedLight'
+    set background=light
+  elseif $ITERM_PROFILE == 'SolarizedDark'
+    set background=dark
+  endif
+
+  syntax enable
+  colorscheme solarized
+  set t_Co=16
 endif
 
-syntax enable
-colorscheme solarized
-set t_Co=16
-
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeHighlightCursorLine = 1
 
 " }}}
 
@@ -126,16 +182,14 @@ inoremap jj <ESC>
 nnoremap Y y$
 
 " Arrow keys move at turbo speed
-nnoremap <down> 4j
-nnoremap <up> 4k
+nnoremap <left>  4h
+nnoremap <down>  4j
+nnoremap <up>    4k
 nnoremap <right> 4l
-nnoremap <left> 4h
-nnoremap <down> 4j
-vnoremap <down> 4j
-vnoremap <up> 4k
+vnoremap <left>  4h
+vnoremap <down>  4j
+vnoremap <up>    4k
 vnoremap <right> 4l
-vnoremap <left> 4h
-vnoremap <down> 4j
 
 " Stop vim-latex from stealing <c-j> 
 nnoremap <leader>m <Plug>IMAP_JumpForward
@@ -161,9 +215,6 @@ nnoremap <leader>wq :wq<cr>
 
 " Open or close the NERDTree window
 nnoremap <leader>tt :NERDTreeToggle<cr>
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeHighlightCursorLine = 1
 
 " vim-cakephp shortcuts
 nnoremap <leader>cv :Cview<cr>
@@ -193,7 +244,7 @@ let g:EasyMotion_leader_key = '<leader><space>'
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
 
 " Give the buffer a header comment
-nnoremap <leader>ti :call HeaderComment()<cr>
+nnoremap <leader>ti :call s:HeaderComment()<cr>
 
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
@@ -260,14 +311,13 @@ vnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 " Rspec with Dispatch
 nnoremap <leader>r :Dispatch rspec %<cr>
 
-
 " }}}
 
 
 " Functions ------------------------------------------------------ {{{
 
 " Open my scratchpad
-function! OpenScratchpad()
+function! s:OpenScratchpad()
   if $SCRATCHPAD
     exe ":Gist " . $SCRATCHPAD
     au! BufLeave,FocusLost * silent! wall
@@ -275,10 +325,10 @@ function! OpenScratchpad()
     echoe "No $SCRATCHPAD"
   endif
 endfunction
-command! OpenScratchpad call OpenScratchpad()
+command! OpenScratchpad call s:OpenScratchpad()
 
 " Prepend a header comment with the filename and a dashed line.
-function! HeaderComment()
+function! s:HeaderComment()
   " Prepend the buffer with filename and a dashed line.
   call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
   " Comment it out with TComment
@@ -286,7 +336,7 @@ function! HeaderComment()
 endfunction
 
 " Open a URL using a system-appropriate opener
-function! OpenURL(url)
+function! s:OpenURL(url)
   let url = a:url
   if url !~ "http://"
     let url = "http://" . url
@@ -307,10 +357,10 @@ function! OpenURL(url)
 
   redraw!
 endfunction
-command! -nargs=1 OpenURL call OpenURL(<f-args>)
+command! -nargs=1 OpenURL call s:OpenURL(<f-args>)
 
 " Open a URL that's under the cursor or visually selected
-function! OpenURLAtCursor()
+function! s:OpenURLAtCursor()
   if mode() ==# 'n'
     let uri = expand("<cWORD>")
     if match(uri, "://")
@@ -322,7 +372,7 @@ function! OpenURLAtCursor()
 
   call OpenURL(uri)
 endfunction
-command! -bar OpenURLAtCursor call OpenURLAtCursor(<f-args>)
+command! -bar OpenURLAtCursor call s:OpenURLAtCursor(<f-args>)
 
 function! s:GetSelectedText()
   let save_z = getreg('z', 1)
@@ -348,7 +398,6 @@ function! s:ReloadChrome()
     silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt ")
   endif
 endfunction
-
 
 " }}}
 
