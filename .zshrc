@@ -19,9 +19,7 @@ alias serve='python -m SimpleHTTPServer'
 alias sp='vim ~/repos/scratchpad/scratchpad.md'
 alias splive='vim -c "OpenScratchpad" -c only'
 alias journal='vim "$HOME/repos/journal/$(date "+%Y-%m-%d").md"'
-alias rc='pry -r ./config/environment'
-alias rs='rails server'
-alias rg='rails generate'
+alias rpry='pry -r ./config/environment'
 
 # Key Bindings
 # ------------
