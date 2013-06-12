@@ -31,22 +31,6 @@ ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[cyan]%}"
 
-# Greeting (why not?)
-function get_time_period {
-    hour=$(date +"%k")
-    if [ $hour -lt 12 ]; then
-        echo "Morning"
-    elif [ $hour -ge 12 ] && [ $hour -lt 17 ]; then
-        echo "Afternoon"
-    else
-        echo "Evening"
-    fi
-}
-
-echo "--------------------"
-echo "Good $(get_time_period), Nick"
-echo "--------------------"
-
 # Determine the time since last commit. If branch is clean,
 # use a neutral color, otherwise colors will vary according to time.
 function git_time_since_commit() {
