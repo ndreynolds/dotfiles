@@ -4,3 +4,9 @@ Encoding:
 LineLength:
   Enabled: true
   Max: 85
+
+SymbolName:
+  Enabled: false
+
+MethodAndVariableSnakeCase:
+  Enabled: false

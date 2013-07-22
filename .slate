@@ -41,12 +41,12 @@ bind space:ctrl;alt  chain ${full} | ${centered}
 
 # Focus Bindings
 # Shift focus to the app to the
-bind l:cmd     focus right
-bind h:cmd     focus left
-bind k:cmd     focus up
-bind j:cmd     focus down
-bind k:cmd;alt focus behind
-bind j:cmd;alt focus behind
+# bind l:cmd     focus right
+# bind h:cmd     focus left
+# bind k:cmd     focus up
+# bind j:cmd     focus down
+# bind k:cmd;alt focus behind
+# bind j:cmd;alt focus behind
 
 bind i:ctrl;alt focus 'iTerm'
 bind o:ctrl;alt focus 'Google Chrome'
