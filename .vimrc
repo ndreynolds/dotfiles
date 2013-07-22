@@ -17,6 +17,10 @@ if s:needs_vundle
   silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 endif
 
+if v:version < 703
+  let g:loaded_youcompleteme = 1
+endif
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -37,6 +41,7 @@ Bundle 'lukaszb/vim-web-indent'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'msanders/snipmate.vim'
+Bundle 'rstacruz/sparkup'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
@@ -46,9 +51,12 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/LanguageTool'
 Bundle 'vim-scripts/renamer.vim'
 Bundle 'vim-scripts/slimv.vim'
+Bundle 'vim-scripts/VOoM'
 Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
@@ -83,6 +91,7 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set mouse=a
+set iskeyword+=\-
 
 set ignorecase
 set smartcase
@@ -122,7 +131,14 @@ endif
 let g:syntastic_javascript_checker = 'jshint'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
-let g:tex_flavor='latex'
+let g:tex_flavor = 'latex'
+
+" LanguageTool
+let jar = '/usr/local/Cellar/languagetool/2.1/libexec/languagetool-commandline.jar'
+if filereadable(jar)
+  let g:languagetool_jar = jar
+endif
+let g:languagetool_disable_rules = 'WHITESPACE_RULE,EN_QUOTES,TYPOGRAFISCHE_ANFUEHRUNGSZEICHEN'
 
 " Slimv servers
 if has('unix') && system('uname') =~ 'Darwin'
@@ -141,7 +157,7 @@ endif
 
 " Set git exec path 
 "
-" `push.default = simple` breaks with Apple Git 1.7
+" `push.default = simple` throws an error with Apple Git 1.7
 " Try to find and use 1.8
 if filereadable('/usr/local/bin/git')
   let g:fugitive_git_executable = '/usr/local/bin/git'
@@ -276,13 +292,16 @@ nnoremap <leader>os :OpenURL grooveshark.com<cr>
 nnoremap <leader>ov :OpenURL tnerual.eriogerg.free.fr/vimqrc.html<cr>
 nnoremap <leader>ol :OpenURL localhost<cr>
 
+" Show definition of word under cursor
+nnoremap <leader>d :call OpenURL("dict.cc/?s=" . expand("<cword>"))<cr>
+
 " Copy to Mac clipboard (if on a Mac and not in MacVim)
 if system("uname") =~ "Darwin" && !has("gui_running")
   vnoremap "+y !pbcopy<cr>u
 endif
 
 " Open scratchpad
-nnoremap <leader>p :OpenScratchpad<cr>
+nnoremap <leader>p :set paste!<cr>
 
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
@@ -336,7 +355,7 @@ function! s:HeaderComment()
 endfunction
 
 " Open a URL using a system-appropriate opener
-function! s:OpenURL(url)
+function! OpenURL(url)
   let url = a:url
   if url !~ "http://"
     let url = "http://" . url
@@ -344,7 +363,7 @@ function! s:OpenURL(url)
 
   " Mac?
   if system("uname") =~ "Darwin" " Mac ?
-    silent call system("open " . url . " &")
+    silent call system('open "' . url . '" &')
   " Windows?
   elseif has("win32") || has("win64")
     silent call system("start " . url)
@@ -357,10 +376,10 @@ function! s:OpenURL(url)
 
   redraw!
 endfunction
-command! -nargs=1 OpenURL call s:OpenURL(<f-args>)
+command! -nargs=1 OpenURL call OpenURL(<f-args>)
 
 " Open a URL that's under the cursor or visually selected
-function! s:OpenURLAtCursor()
+function! OpenURLAtCursor()
   if mode() ==# 'n'
     let uri = expand("<cWORD>")
     if match(uri, "://")
@@ -372,7 +391,7 @@ function! s:OpenURLAtCursor()
 
   call OpenURL(uri)
 endfunction
-command! -bar OpenURLAtCursor call s:OpenURLAtCursor(<f-args>)
+command! -bar OpenURLAtCursor call OpenURLAtCursor(<f-args>)
 
 function! s:GetSelectedText()
   let save_z = getreg('z', 1)
