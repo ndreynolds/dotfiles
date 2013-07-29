@@ -15,24 +15,29 @@ alias l='ls -CF'
 alias s='git status'
 
 alias tmux='TERM=screen-256color-bce tmux'
+alias mux=tmuxinator
 alias serve='python -m SimpleHTTPServer'
 alias sp='vim ~/repos/scratchpad/scratchpad.md'
 alias splive='vim -c "OpenScratchpad" -c only'
 alias journal='vim "$HOME/repos/journal/entries/$(date "+%Y-%m-%d").md"'
 alias rpry='pry -r ./config/environment'
+alias bigfiles='tree -ah --du . | ack "\[(\d{3,}M|\d+.*G)\]"'
 
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-alias mvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+  alias mvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
+fi
 
 # Plugins
 # -------
 plugins=(git git-extras git-flow github brew ruby rails3 bundler 
-         cloudapp npm pip vagrant)
+         cloudapp npm pip vagrant tmuxinator)
 
 # Env
 # ---
 export EDITOR=vim
 export VISUAL=vim
+export DISABLE_AUTO_TITLE=true
 
 # $PATH
 # -----

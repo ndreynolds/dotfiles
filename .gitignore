@@ -4,3 +4,6 @@
 .vim/swap
 .vim/undo
 .vim/bundle
+
+# Ignore projects by default, add templates with `-f`
+.tmuxinator/
