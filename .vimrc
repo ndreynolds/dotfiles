@@ -261,7 +261,7 @@ let g:EasyMotion_leader_key = '<leader><space>'
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
 
 " Give the buffer a header comment
-nnoremap <leader>ti :call s:HeaderComment()<cr>
+nnoremap <leader>ti :call HeaderComment()<cr>
 
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
@@ -348,7 +348,7 @@ endfunction
 command! OpenScratchpad call s:OpenScratchpad()
 
 " Prepend a header comment with the filename and a dashed line.
-function! s:HeaderComment()
+function! HeaderComment()
   " Prepend the buffer with filename and a dashed line.
   call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
   " Comment it out with TComment
@@ -415,7 +415,7 @@ endfunction
 
 function! s:ReloadChrome()
   if exists('g:autoloaded_rails')
-    silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt ")
+    silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt &")
   endif
 endfunction
 
