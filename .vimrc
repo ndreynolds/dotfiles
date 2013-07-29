@@ -414,9 +414,7 @@ function! s:VSetSearch()
 endfunction
 
 function! s:ReloadChrome()
-  if exists('g:autoloaded_rails')
-    silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt &")
-  endif
+  silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt &")
 endfunction
 
 " }}}
@@ -468,7 +466,7 @@ au BufNewFile,BufRead *.json set filetype=javascript
 " Header files should assume C (most likely for me)
 au BufNewFile,BufRead *.h set filetype=c
 
-if executable("osascript")
+if executable("osascript") && exists('g:autoloaded_rails')
   au BufWritePost * call s:ReloadChrome()
 endif
 
