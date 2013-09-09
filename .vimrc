@@ -27,6 +27,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'aaronbieber/quicktask'
 Bundle 'briancollins/vim-jst'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -41,23 +42,25 @@ Bundle 'lukaszb/vim-web-indent'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'msanders/snipmate.vim'
-Bundle 'rstacruz/sparkup'
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
-Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
+Bundle 'tristen/vim-sparkup'
+Bundle 'ujihisa/neco-ghc'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/LanguageTool'
 Bundle 'vim-scripts/renamer.vim'
 Bundle 'vim-scripts/slimv.vim'
-Bundle 'vim-scripts/VOoM'
 Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
@@ -130,7 +133,8 @@ endif
 " Plugin Configuration ------------------------------------------- {{{
 
 let g:syntastic_javascript_checker = 'jshint'
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let g:syntastic_ruby_exec = '~/.rbenv/shims/ruby'
 
 let g:tex_flavor = 'latex'
 
@@ -183,6 +187,8 @@ endif
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeHighlightCursorLine = 1
+
+let g:necoghc_enable_detailed_browse = 1
 
 " }}}
 
@@ -306,6 +312,8 @@ nnoremap <leader>p :set paste!<cr>
 
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
+nnoremap <leader>n :CtrlP ~/repos/notes<cr>
+nnoremap <leader>ta :CtrlPTag<cr>
 
 " Pretty print JSON and XML
 nnoremap <leader>j :%!python -m json.tool<cr>
@@ -352,7 +360,7 @@ function! HeaderComment()
   " Prepend the buffer with filename and a dashed line.
   call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
   " Comment it out with TComment
-  exe ':1,2 TComment'
+  norm 'ggVjgc'
 endfunction
 
 " Open a URL using a system-appropriate opener
@@ -488,6 +496,7 @@ augroup FTOptions
   autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
+  autocmd FileType haskell                  setlocal omnifunc=necoghc#omnifunc
   autocmd FileType crontab                  set nobackup nowritebackup
   autocmd FileType help                     nnoremap <silent><buffer> q :q<cr>
 augroup END
