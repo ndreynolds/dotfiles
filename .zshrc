@@ -18,8 +18,10 @@ alias tmux='TERM=screen-256color-bce tmux'
 alias mux=tmuxinator
 alias serve='python -m SimpleHTTPServer'
 alias sp='vim ~/repos/scratchpad/scratchpad.md'
+alias n=notes
+alias r=repo
 alias splive='vim -c "OpenScratchpad" -c only'
-alias journal='vim "$HOME/repos/journal/entries/$(date "+%Y-%m-%d").md"'
+alias todo='vim "$HOME/repos/todo/todo.txt"'
 alias rpry='pry -r ./config/environment'
 alias bigfiles='tree -ah --du . | ack "\[(\d{3,}M|\d+.*G)\]"'
 
@@ -28,10 +30,45 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias mvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
 fi
 
+# Functions
+# ---------
+notes() {
+  vim $HOME/repos/notes/$1
+}
+_notes() {
+  reply=(`ls "$HOME/repos/notes"`)
+}
+compctl -K _notes notes
+
+repo() {
+  cd $HOME/repos/$1
+}
+_repo() {
+  reply=(`ls "$HOME/repos"`)
+}
+compctl -K _repo repo
+
+journal() {
+  if (( $# == 0 )) then
+    vim "$HOME/repos/journal/entries/$(date "+%Y-%m-%d").md"
+  else
+    if [[ "$1" = "yesterday" ]] then
+      vim "$HOME/repos/journal/entries/$(date -v -1d "+%Y-%m-%d").md"
+    else
+      vim "$HOME/repos/journal/entries/$1"
+    fi
+  fi
+}
+_journal() {
+  reply=(yesterday `ls "$HOME/repos/journal/entries"`)
+}
+compctl -K _journal journal
+
+
 # Plugins
 # -------
 plugins=(git git-extras git-flow github brew ruby rails3 bundler 
-         cloudapp npm pip vagrant tmuxinator)
+         cloudapp npm pip pass vagrant tmuxinator gem zsh-syntax-highlighting)
 
 # Env
 # ---
