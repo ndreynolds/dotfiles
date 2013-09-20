@@ -302,8 +302,8 @@ nnoremap <leader>ol :OpenURL localhost<cr>
 " Show definition of word under cursor
 nnoremap <leader>d :call OpenURL("dict.cc/?s=" . expand("<cword>"))<cr>
 
-" Copy to Mac clipboard (if on a Mac and not in MacVim)
-if system("uname") =~ "Darwin" && !has("gui_running")
+" Hacky clipboard workaround for Mac if compiled without clipboard support
+if !has("clipboard") && system("uname") =~ "Darwin"
   vnoremap "+y !pbcopy<cr>u
 endif
 
