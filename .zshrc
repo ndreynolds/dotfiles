@@ -18,8 +18,10 @@ alias tmux='TERM=screen-256color-bce tmux'
 alias mux=tmuxinator
 alias serve='python -m SimpleHTTPServer'
 alias sp='vim ~/repos/scratchpad/scratchpad.md'
+alias wordfreq="perl -0777 -lape's/\s+/\n/g' $1 | sort | uniq -c | sort -nr"
 alias n=notes
 alias r=repo
+alias a=ankid
 alias splive='vim -c "OpenScratchpad" -c only'
 alias todo='vim "$HOME/repos/todo/todo.txt"'
 alias rpry='pry -r ./config/environment'
@@ -63,6 +65,14 @@ _journal() {
   reply=(yesterday `ls "$HOME/repos/journal/entries"`)
 }
 compctl -K _journal journal
+
+ankid() {
+  vim $HOME/repos/anki-imports/$1
+}
+_ankid() {
+  reply=(`ls "$HOME/repos/anki-imports"`)
+}
+compctl -K _ankid ankid
 
 
 # Plugins

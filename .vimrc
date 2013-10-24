@@ -26,8 +26,11 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'aaronbieber/quicktask'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'briancollins/vim-jst'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -36,14 +39,13 @@ Bundle 'groenewege/vim-less'
 Bundle 'jcf/vim-latex'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'lukaszb/vim-web-indent'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
+Bundle 'mhinz/vim-startify'
 Bundle 'msanders/snipmate.vim'
-Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
+Bundle 'rizzatti/funcoo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
@@ -56,7 +58,6 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'tristen/vim-sparkup'
 Bundle 'ujihisa/neco-ghc'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/LanguageTool'
 Bundle 'vim-scripts/renamer.vim'
@@ -189,6 +190,13 @@ let NERDTreeDirArrows = 1
 let NERDTreeHighlightCursorLine = 1
 
 let g:necoghc_enable_detailed_browse = 1
+
+let g:startify_custom_header =
+      \ map(split(system('vim --version | head -2'), '\n'), '"   ". v:val') + ['','']
+
+let g:startify_custom_footer = ['',''] +
+      \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
+
 
 " }}}
 
