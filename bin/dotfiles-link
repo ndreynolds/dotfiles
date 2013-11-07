@@ -1,45 +1,78 @@
-#!/usr/bin/env python
+#!/usr/bin/env ruby
 
-# Create symlinks to all the dotfiles in $HOME 
-# Needs to be run from dotfiles/
+DOTFILES = File.absolute_path(File.dirname(File.dirname(__FILE__)))
+EXCLUDES = [
+  '.',
+  '..',
+  '.git',
+  '.gitignore',
+  'README.md'
+]
 
-import os
-import shutil
-import glob
-import sys
+$should_link = []
 
-HOME = os.getenv('HOME')
-DOTFILES = os.getcwd()
+def populate_should_link
+  $should_link = Dir.glob(File.join(DOTFILES, '{*,.*}'))
+    .delete_if { |f| File.directory?(f) }
+    .map { |f| File.basename(f) }
+  EXCLUDES.each { |e| $should_link.delete(e) }
+end
 
-quiet = '--quiet' in sys.argv
-home = os.listdir(HOME)
-dotfiles = glob.glob('.*')
+def warn_unlinked
+  if $should_link.any?
+    puts "The following files were found, but not linked: "
+    $should_link.each do |f|
+      puts "  #{f}"
+    end
+    puts "If they do not need to be linked, add them to the exclusions"
+  end
+end
 
-# We don't want to link these:
-dotfiles.remove('.git')
-dotfiles.remove('.gitignore')
+def link(src, dst)
+  $should_link.delete(dst[1..-1])
+  if File.symlink?(File.join(Dir.home, dst))
+    File.delete(File.join(Dir.home, dst))
+  end
+  File.symlink(File.join(DOTFILES, src), File.join(Dir.home, dst))
+end
 
-def link(f):
-    os.symlink(os.path.join(DOTFILES, f), os.path.join(HOME, f))
+unless Dir.exists? File.join(Dir.home, '.oh-my-zsh')
+  `git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh`
+end
 
-def rm(path):
-    # use os.remove on files and links
-    if os.path.islink(path) or os.path.isfile(path):
-        os.remove(path)
-    # and for dirs:
-    else:
-        shutil.rmtree(path)
+unless Dir.exists? File.join(Dir.home, '.oh-my-fish')
+  `git clone https://github.com/bpinto/oh-my-fish ~/.oh-my-fish`
+end
 
-for el in dotfiles:
-    if el in home:
-        path = os.path.join(HOME, el)
-        msg = 'Linking %s would overwrite the current path. Delete and continue? (y/N) ' % el
-        if quiet or raw_input(msg) == 'y':
-            # os.symlink will raise an error if the link path exists.
-            # we'll need to delete it first.
-            rm(path)
-            link(el)
-        else:
-            print 'Skipped %s' % el 
-    else:
-        link(el)
+`mkdir -p ~/.config/fish`
+`mkdir -p ~/.oh-my-fish/themes/ndr`
+
+populate_should_link
+
+link "gitconfig",                   ".gitconfig"
+link "gitignore_global",            ".gitignore_global"
+link "git_template",                ".gitignore_global"
+link "bash_profile",                ".bash_profile"
+link "bashrc",                      ".bashrc"
+link "hgrc",                        ".hgrc"
+link "jshintrc",                    ".jshintrc"
+link "profile",                     ".profile"
+link "rubocop.yml",                 ".rubocop.yml"
+link "screenrc",                    ".screenrc"
+link "slate",                       ".slate"
+link "tmux.conf",                   ".tmux.conf"
+link "emacs",	                    ".emacs"
+link "rubocop.yml",                 ".rubocop.yml"
+link "tmuxinator",                  ".tmuxinator"
+link "profile",                     ".profile"
+link "slate",                       ".slate"
+link "screenrc",                    ".screenrc"
+link "vim/vimrc",                   ".vimrc"
+link "vim",                         ".vim"
+link "fish/config.fish",            ".config/fish/config.fish"
+link "fish/fish_prompt.fish",       ".oh-my-fish/themes/ndr/fish_prompt.fish"
+link "fish/fish_right_prompt.fish", ".oh-my-fish/themes/ndr/fish_right_prompt.fish"
+link "zsh/zshrc",                   ".zshrc"
+link "zsh/ndr.zsh",                 ".oh-my-zsh/themes/ndr.zsh"
+
+warn_unlinked
