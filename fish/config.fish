@@ -46,10 +46,20 @@ alias ll5 'tree --dirsfirst -ChFupDaL 5'
 alias ll6 'tree --dirsfirst -ChFupDaL 6'
 
 
+# environment
+# -----------
+
+set -x VIM_BINARY vim
+set -x MVIM_BINARY mvim 
+
 if contains (command uname) 'Darwin'
-  alias vim '/Applications/MacVim.app/Contents/MacOS/Vim'
-  alias mvim '/Applications/MacVim.app/Contents/MacOS/MacVim'
+  set -x VIM_BINARY '/Applications/MacVim.app/Contents/MacOS/Vim'
+  set -x MVIM_BINARY '/Applications/MacVim.app/Contents/MacOS/MacVim'
+  alias vim $VIM_BINARY
+  alias mvim $MVIM_BINARY
 end
+
+set -x EDITOR $VIM_BINARY
 
 
 # functions

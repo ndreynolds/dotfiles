@@ -213,15 +213,19 @@ inoremap jj <ESC>
 " Make Y behave like C & D
 nnoremap Y y$
 
+" Clear search highlighting
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
 " Arrow keys move at turbo speed
-nnoremap <left>  4h
-nnoremap <down>  4j
-nnoremap <up>    4k
-nnoremap <right> 4l
-vnoremap <left>  4h
-vnoremap <down>  4j
-vnoremap <up>    4k
-vnoremap <right> 4l
+" (Off until I stop using them to move around files)
+" nnoremap <left>  4h
+" nnoremap <down>  4j
+" nnoremap <up>    4k
+" nnoremap <right> 4l
+" vnoremap <left>  4h
+" vnoremap <down>  4j
+" vnoremap <up>    4k
+" vnoremap <right> 4l
 
 " Stop vim-latex from stealing <c-j> 
 nnoremap <leader>m <Plug>IMAP_JumpForward
@@ -322,6 +326,7 @@ nnoremap <leader>p :set paste!<cr>
 " ctrlp
 nnoremap <leader><leader> :CtrlP<cr>
 nnoremap <leader>n :CtrlP ~/repos/notes<cr>
+nnoremap <leader>k :CtrlP ~/repos/anki-imports<cr>
 nnoremap <leader>ta :CtrlPTag<cr>
 
 " Pretty print JSON and XML
@@ -347,6 +352,7 @@ vnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 
 " Rspec with Dispatch
 nnoremap <leader>r :Dispatch rspec %<cr>
+
 
 " }}}
 
