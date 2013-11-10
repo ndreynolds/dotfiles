@@ -1,5 +1,4 @@
 [core]
-    editor = vim
     excludesfile= ~/.gitignore_global
 	deltaBaseCacheLimit = 1G
 [user]
