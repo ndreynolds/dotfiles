@@ -7,7 +7,7 @@
 [init]
     templatedir = ~/.git_template
 [web]
-    browser = google-chrome
+    browser = open
 [color]
     ui = auto
     diff = auto
