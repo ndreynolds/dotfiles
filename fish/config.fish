@@ -53,10 +53,10 @@ set -x VIM_BINARY vim
 set -x MVIM_BINARY mvim 
 
 if contains (command uname) 'Darwin'
-  set -x VIM_BINARY '/Applications/MacVim.app/Contents/MacOS/Vim'
-  set -x MVIM_BINARY '/Applications/MacVim.app/Contents/MacOS/MacVim'
-  alias vim $VIM_BINARY
-  alias mvim $MVIM_BINARY
+    set -x VIM_BINARY '/Applications/MacVim.app/Contents/MacOS/Vim'
+    set -x MVIM_BINARY '/Applications/MacVim.app/Contents/MacOS/MacVim'
+    alias vim $VIM_BINARY
+    alias mvim $MVIM_BINARY
 end
 
 set -x EDITOR $VIM_BINARY
@@ -66,53 +66,61 @@ set -x EDITOR $VIM_BINARY
 # ---------
 
 function pj
-  python -m json.tool | pygmentize -l json
+    python -m json.tool | pygmentize -l json
 end
 
 function bigfiles 
-  tree -ah --du $argv | ack "\[(\d{3,}M|\d+.*G)\]"
+    tree -ah --du $argv | ack "\[(\d{3,}M|\d+.*G)\]"
 end
 
 function notes --description "open a note"
-  vim $HOME/repos/notes/$argv[1]
+    vim $HOME/repos/notes/$argv[1]
 end
 
 complete -x -c notes -c n -a "(ls $HOME/repos/notes)"
 
 function journal --description "open a journal entry"
-  if count $argv = 0
-    set today (date "+%Y-%m-%d")
-    vim "$HOME/repos/journal/entries/$today.md"
-  else
-    if $argv[1] = "yesterday"
-      set yesterday (date -v -1d "+%Y-%m-%d")
-      vim "$HOME/repos/journal/entries/$yesterday.md"
+    if count $argv >/dev/null
+        if [ $argv[1] = "yesterday" ]
+            set yesterday (date -v -1d "+%Y-%m-%d")
+            vim "$HOME/repos/journal/entries/$yesterday.md"
+        else
+            vim "$HOME/repos/journal/entries/$argv[1]"
+        end
     else
-      vim "$HOME/repos/journal/entries/$argv[1]"
+        set today (date "+%Y-%m-%d")
+        vim "$HOME/repos/journal/entries/$today.md"
     end
-  end
 end
 
 complete -x -c journal -a "yesterday (ls $HOME/repos/journal/entries)"
 
 function repo
-  cd "$HOME/repos/$argv[1]"
+    cd "$HOME/repos/$argv[1]"
 end
 
 complete -x -c repo -a "(ls $HOME/repos)"
 
 function ankid
-  vim "$HOME/repos/anki-imports/$argv[1]"
+    vim "$HOME/repos/anki-imports/$argv[1]"
 end
 
 complete -x -c ankid -c a -a "(ls $HOME/repos/anki-imports)"
+
+
+# PATH config
+# -----------
+
+set -x PATH /usr/local/bin $PATH
+set -x PATH /usr/local/sbin $PATH
+set -x PATH $HOME/dotfiles/bin $PATH
 
 
 # local config
 # ------------
 
 if test -s $HOME/.config/fish/local.fish
-  . $HOME/.config/fish/local.fish
+    . $HOME/.config/fish/local.fish
 end
 
 
@@ -123,3 +131,9 @@ set fish_path $HOME/.oh-my-fish
 set fish_theme idan
 set fish_plugins git brew rake rbenv rails bundler
 . $fish_path/oh-my-fish.fish
+
+
+# startup
+# -------
+
+bash ~/dotfiles/bin/dotfiles-update

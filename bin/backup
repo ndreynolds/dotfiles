@@ -25,7 +25,7 @@ export PASSPHRASE=$DUPLICITY_KEY
 
 if [ "$1" == "restore" ] && [ $# == 2 ]; then
 
-  duplicity restore "s3+http://$DUPLICITY_BUCKET_ID" $2
+  /usr/local/bin/duplicity restore "s3+http://$DUPLICITY_BUCKET_ID" $2
 
 elif [ "$1" == "sync" ]; then
 
@@ -36,7 +36,9 @@ elif [ "$1" == "sync" ]; then
     INCLUDES="$INCLUDES --include $dir"
   done
 
-  duplicity $INCLUDES --exclude '**' --exclude '/.*' --volsize 250 \
+  ulimit -n 1024
+
+  /usr/local/bin/duplicity $INCLUDES --exclude '**' --exclude '/.*' --volsize 250 \
     --allow-source-mismatch --full-if-older-than 30D / "s3+http://$DUPLICITY_BUCKET_ID" 
 
 else
