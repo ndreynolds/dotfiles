@@ -110,6 +110,8 @@ set showmatch
 set hlsearch
 set foldmethod=marker
 
+" Phonetic Cyrillic keyboard mapping
+set langmap=АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz
 
 " Store swap, backup and undo files within .vim/ 
 " Make the directories as needed.
