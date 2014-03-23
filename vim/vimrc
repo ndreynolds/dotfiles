@@ -28,10 +28,10 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'aaronbieber/quicktask'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 Bundle 'briancollins/vim-jst'
 Bundle 'dag/vim-fish'
 Bundle 'digitaltoad/vim-jade'
@@ -163,9 +163,9 @@ if has('unix') && system('uname') =~ 'Darwin'
   let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
 endif
 
-" Make Powerline fancy
+" airline
 if $POWERLINE_FANCY
-  let g:Powerline_symbols='fancy'
+  let g:airline_powerline_fonts=1
 endif
 
 " Set git exec path 
