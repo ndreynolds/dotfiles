@@ -1,6 +1,6 @@
 [core]
     excludesfile= ~/.gitignore_global
-	deltaBaseCacheLimit = 1G
+    deltaBaseCacheLimit = 1G
 [user]
     name = Nick Reynolds
     email = ndreynolds@gmail.com
@@ -26,6 +26,8 @@
     email = ndreynolds@gmail.com
 [fetch]
     recurseSubmodules = true
+[grep]
+    lineNumber = true
 [alias]
     br = branch
     co = checkout
