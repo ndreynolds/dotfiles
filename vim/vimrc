@@ -46,12 +46,10 @@ Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mhinz/vim-startify'
 Bundle 'msanders/snipmate.vim'
-Bundle 'rizzatti/dash.vim'
-Bundle 'rizzatti/funcoo.vim'
+Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
-Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-dispatch'
@@ -154,14 +152,14 @@ endif
 let g:languagetool_disable_rules = 'WHITESPACE_RULE,EN_QUOTES,TYPOGRAFISCHE_ANFUEHRUNGSZEICHEN'
 
 " Slimv servers
-if has('unix') && system('uname') =~ 'Darwin'
-  function! BuildTermCmd(cmd)
-    return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
-  endfunction
+" if has('unix') && system('uname') =~ 'Darwin'
+"   function! BuildTermCmd(cmd)
+"     return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
+"   endfunction
 
-  let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
-  let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
-endif
+"   "let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
+"   "let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
+" endif
 
 " airline
 if $POWERLINE_FANCY
@@ -213,11 +211,11 @@ let NERDTreeHighlightCursorLine = 1
 
 let g:necoghc_enable_detailed_browse = 1
 
-let g:startify_custom_header =
-      \ map(split(system('vim --version | head -2'), '\n'), '"   ". v:val') + ['','']
+" let g:startify_custom_header =
+"       \ map(split(system('$SHELL -c "vim --version | head -2"'), '\n'), '"   ". v:val') + ['','']
 
-let g:startify_custom_footer = ['',''] +
-      \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
+" let g:startify_custom_footer = ['',''] +
+"       \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
 
 
 " }}}
@@ -405,7 +403,7 @@ function! HeaderComment()
   " Prepend the buffer with filename and a dashed line.
   call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
   " Comment it out with TComment
-  norm 'ggVjgc'
+  norm ggVjgc
 endfunction
 
 " Open a URL using a system-appropriate opener
