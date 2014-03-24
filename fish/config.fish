@@ -17,7 +17,7 @@ alias ef 'vim ~/.config/fish/config.fish'
 alias et 'vim ~/.tmux.conf'
 alias eg 'vim ~/.gitconfig'
 
-alias tmux 'TERM=screen-256color-bce tmux'
+alias tmux 'env TERM=screen-256color-bce tmux'
 alias mux tmuxinator
 alias serve 'python -m SimpleHTTPServer'
 alias sp 'vim ~/repos/scratchpad/scratchpad.md'
