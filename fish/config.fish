@@ -18,7 +18,7 @@ alias et 'vim ~/.tmux.conf'
 alias eg 'vim ~/.gitconfig'
 
 alias tmux 'env TERM=screen-256color-bce tmux'
-alias mux tmuxinator
+alias mux 'tmuxinator'
 alias serve 'python -m SimpleHTTPServer'
 alias sp 'vim ~/repos/scratchpad/scratchpad.md'
 alias wordfreq "perl -0777 -lape's/\s+/\n/g' $1 | sort | uniq -c | sort -nr"
@@ -128,7 +128,7 @@ end
 # -----------------
 
 set fish_path $HOME/.oh-my-fish
-set fish_theme idan
+set fish_theme ndr 
 set fish_plugins git brew rake rbenv rails bundler
 . $fish_path/oh-my-fish.fish
 

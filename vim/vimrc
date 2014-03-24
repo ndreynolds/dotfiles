@@ -28,11 +28,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'aaronbieber/quicktask'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 Bundle 'briancollins/vim-jst'
+Bundle 'chrisbra/csv.vim'
 Bundle 'dag/vim-fish'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -46,12 +47,10 @@ Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mhinz/vim-startify'
 Bundle 'msanders/snipmate.vim'
-Bundle 'rizzatti/dash.vim'
-Bundle 'rizzatti/funcoo.vim'
+Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
-Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-dispatch'
@@ -112,6 +111,8 @@ set showmatch
 set hlsearch
 set foldmethod=marker
 
+" Phonetic Cyrillic keyboard mapping
+set langmap=АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz
 
 " Store swap, backup and undo files within .vim/ 
 " Make the directories as needed.
@@ -149,25 +150,25 @@ let g:tex_flavor = 'latex'
 let g:gist_open_browser_after_post = 1
 
 " LanguageTool
-let jar = '/usr/local/Cellar/languagetool/2.2/libexec/languagetool-commandline.jar'
+let jar = '/usr/local/Cellar/languagetool/2.3/libexec/languagetool-commandline.jar'
 if filereadable(jar)
   let g:languagetool_jar = jar
 endif
 let g:languagetool_disable_rules = 'WHITESPACE_RULE,EN_QUOTES,TYPOGRAFISCHE_ANFUEHRUNGSZEICHEN'
 
 " Slimv servers
-if has('unix') && system('uname') =~ 'Darwin'
-  function! BuildTermCmd(cmd)
-    return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
-  endfunction
+" if has('unix') && system('uname') =~ 'Darwin'
+"   function! BuildTermCmd(cmd)
+"     return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
+"   endfunction
 
-  let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
-  let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
-endif
+"   "let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
+"   "let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
+" endif
 
-" Make Powerline fancy
+" airline
 if $POWERLINE_FANCY
-  let g:Powerline_symbols='fancy'
+  let g:airline_powerline_fonts=1
 endif
 
 " Set git exec path 
@@ -215,11 +216,11 @@ let NERDTreeHighlightCursorLine = 1
 
 let g:necoghc_enable_detailed_browse = 1
 
-let g:startify_custom_header =
-      \ map(split(system('vim --version | head -2'), '\n'), '"   ". v:val') + ['','']
+" let g:startify_custom_header =
+"       \ map(split(system('$SHELL -c "vim --version | head -2"'), '\n'), '"   ". v:val') + ['','']
 
-let g:startify_custom_footer = ['',''] +
-      \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
+" let g:startify_custom_footer = ['',''] +
+"       \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
 
 
 " }}}
@@ -407,7 +408,7 @@ function! HeaderComment()
   " Prepend the buffer with filename and a dashed line.
   call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
   " Comment it out with TComment
-  norm 'ggVjgc'
+  norm ggVjgc
 endfunction
 
 " Open a URL using a system-appropriate opener
