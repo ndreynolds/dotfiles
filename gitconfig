@@ -35,7 +35,7 @@
     dw = diff
     da = diff HEAD
     todo = grep -n -E "(TODO|FIXME)"
-    search = !sh -c 'git log -G$1 --all' -
+    search = !sh -c 'git log -p -G$1 --all' -
     today = log --since='6am' --committer='Nick Reynolds' --pretty=format:'* %B' --no-merges
 [push]
     default = upstream

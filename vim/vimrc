@@ -146,6 +146,8 @@ let g:syntastic_ruby_exec = '~/.rbenv/shims/ruby'
 
 let g:tex_flavor = 'latex'
 
+let g:gist_open_browser_after_post = 1
+
 " LanguageTool
 let jar = '/usr/local/Cellar/languagetool/2.2/libexec/languagetool-commandline.jar'
 if filereadable(jar)
