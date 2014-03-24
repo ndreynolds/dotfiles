@@ -9,6 +9,7 @@
 *.swp
 doc/tags
 doc/tags-ja
+tags
 
 # Mac
 .DS_STORE
