@@ -7,6 +7,7 @@
 
 set shell=/bin/sh
 set nocompatible
+runtime macros/matchit.vim
 filetype off
 
 let s:needs_vundle = !isdirectory($HOME . '/.vim/bundle/vundle')
@@ -41,12 +42,14 @@ Bundle 'godlygeek/tabular'
 Bundle 'groenewege/vim-less'
 Bundle 'jcf/vim-latex'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'kana/vim-textobj-user'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lukaszb/vim-web-indent'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mhinz/vim-startify'
 Bundle 'msanders/snipmate.vim'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -215,6 +218,9 @@ let NERDTreeDirArrows = 1
 let NERDTreeHighlightCursorLine = 1
 
 let g:necoghc_enable_detailed_browse = 1
+
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 
 " let g:startify_custom_header =
 "       \ map(split(system('$SHELL -c "vim --version | head -2"'), '\n'), '"   ". v:val') + ['','']
