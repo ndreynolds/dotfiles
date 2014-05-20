@@ -14,3 +14,4 @@ tags
 # Mac
 .DS_STORE
 .htaccess
+.local-files
