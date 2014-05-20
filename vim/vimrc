@@ -7,7 +7,7 @@
 
 set shell=/bin/sh
 set nocompatible
-runtime macros/matchit.vim
+runtime! macros/matchit.vim
 filetype off
 
 let s:needs_vundle = !isdirectory($HOME . '/.vim/bundle/vundle')
@@ -28,8 +28,6 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'aaronbieber/quicktask'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -44,13 +42,15 @@ Bundle 'godlygeek/tabular'
 Bundle 'groenewege/vim-less'
 Bundle 'honza/vim-snippets'
 Bundle 'jcf/vim-latex'
+Bundle 'kana/vim-textobj-user'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kien/ctrlp.vim'
+Bundle 'lokaltog/vim-easymotion'
+Bundle 'lucapette/vim-ruby-doc'
 Bundle 'lukaszb/vim-web-indent'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
-Bundle 'mhinz/vim-startify'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdtree'
@@ -63,11 +63,14 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tristen/vim-sparkup'
+Bundle 'ujihisa/neco-ghc'
+Bundle 'valloric/YouCompleteMe'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/LanguageTool'
@@ -251,6 +254,8 @@ let g:necoghc_enable_detailed_browse = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 
+let g:ruby_doc_command='open'
+
 " let g:startify_custom_header =
 "       \ map(split(system('$SHELL -c "vim --version | head -2"'), '\n'), '"   ". v:val') + ['','']
 
@@ -312,8 +317,11 @@ command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>wq :wq<cr>
 
-" Open or close the NERDTree window
-nnoremap <leader>tt :NERDTreeToggle<cr>
+" Open or close the NERDTree split
+nnoremap <F5> :NERDTreeToggle<cr>
+
+" Open or close the Gundo split
+nnoremap <F6> :GundoToggle<cr>
 
 " vim-cakephp shortcuts
 nnoremap <leader>cv :Cview<cr>
@@ -343,7 +351,7 @@ let g:EasyMotion_leader_key = '<leader><space>'
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
 
 " Give the buffer a header comment
-nnoremap <leader>ti :call HeaderComment()<cr>
+nnoremap <leader>hc :call HeaderComment()<cr>
 
 " Write ROs as root
 cnoremap w!! w !sudo tee % > /dev/null
@@ -390,7 +398,7 @@ nnoremap <leader>p :set paste!<cr>
 nnoremap <leader><leader> :CtrlP<cr>
 nnoremap <leader>n :CtrlP ~/repos/notes<cr>
 nnoremap <leader>k :CtrlP ~/repos/anki-imports<cr>
-nnoremap <leader>ta :CtrlPTag<cr>
+nnoremap <leader>t :CtrlPTag<cr>
 
 " Pretty print JSON and XML
 nnoremap <leader>j :%!python -m json.tool<cr>
