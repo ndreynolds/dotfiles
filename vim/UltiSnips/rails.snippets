@@ -1,0 +1,63 @@
+global !p
+import re
+
+# Adapted from https://github.com/jpvanhal/inflection
+def camelize(string, uppercase_first_letter=True):
+    if uppercase_first_letter:
+        return re.sub(r"(?:^|_)(.)", lambda m: m.group(1).upper(), string)
+    else:
+        return string[0].lower() + camelize(string)[1:]
+
+def humanize(word):
+    word = re.sub(r"_id$", "", word)
+    word = word.replace('_', ' ')
+    word = re.sub(r"(?i)([a-z\d]*)", lambda match: match.group(1).lower(), word)
+    word = re.sub(r"^\w", lambda match: match.group(0).upper(), word)
+    return word
+endglobal
+
+snippet defcreate "def create - resource"
+def create
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
+  $0
+  respond_to do |format|
+    if @$1.save
+      flash[:notice] = '`!p res = humanize(t[1])` was successfully created.'
+      format.html { redirect_to(@$1) }
+      format.xml { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render :action => "new" }
+      format.xml { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+endsnippet
+
+snippet defupdate "def update - resource"
+def update
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
+  $0
+  respond_to do |format|
+    if @$1.save
+      flash[:notice] = '`!p res = humanize(t[1])` was successfully updated'
+      format.html { redirect_to(@$1) }
+      format.xml { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render :action => "new" }
+      format.xml { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+endsnippet
+
+snippet defnew "def new - resource"
+def new
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.new
+end
+endsnippet
+
+snippet defedit "def edit - resource"
+def edit
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+end
+endsnippet

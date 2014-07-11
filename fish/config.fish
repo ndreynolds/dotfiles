@@ -81,7 +81,9 @@ complete -x -c notes -c n -a "(ls $HOME/repos/notes)"
 
 function journal --description "open a journal entry"
     if count $argv >/dev/null
-        if [ $argv[1] = "yesterday" ]
+        if [ $argv[1] = "read" ]
+            cd "$HOME/repos/journal"; rake
+        else if [ $argv[1] = "yesterday" ]
             set yesterday (date -v -1d "+%Y-%m-%d")
             vim "$HOME/repos/journal/entries/$yesterday.md"
         else
@@ -93,7 +95,7 @@ function journal --description "open a journal entry"
     end
 end
 
-complete -x -c journal -a "yesterday (ls $HOME/repos/journal/entries)"
+complete -x -c journal -a "read yesterday (ls $HOME/repos/journal/entries)"
 
 function repo
     cd "$HOME/repos/$argv[1]"
