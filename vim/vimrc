@@ -31,6 +31,7 @@ Bundle 'gmarik/vundle'
 Bundle 'aaronbieber/quicktask'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'bkad/CamelCaseMotion'
 Bundle 'briancollins/vim-jst'
 Bundle 'chrisbra/csv.vim'
 Bundle 'dag/vim-fish'
@@ -66,6 +67,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rhubarb'
+Bundle 'tpope/vim-rsi'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tristen/vim-sparkup'
@@ -214,7 +217,6 @@ if filereadable('/usr/local/bin/git')
   let g:fugitive_git_executable = '/usr/local/bin/git'
 endif
 
-
 " Solarized colorscheme
 "
 " Only active if within the matching $ITERM_PROFILE.
@@ -314,8 +316,8 @@ command! -bang -nargs=* -complete=file Q q<bang> <args>
 command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
 
 " No-shift-key-required alternatives
-nnoremap <leader>w :w<cr>
-nnoremap <leader>wq :wq<cr>
+" nnoremap <leader>w :w<cr>
+" nnoremap <leader>wq :wq<cr>
 
 " Open or close the NERDTree split
 nnoremap <F5> :NERDTreeToggle<cr>
@@ -429,6 +431,8 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Generate HTML with Pandoc and open in browser 
 nnoremap <leader>h :call PreviewMarkdown()<cr>
+
+command! -range RubyUpdateHashSyntax :exe '<line1>,<line2>s/:\([^ ]*\)\(\s*\)=>/\1:/g'
 
 " }}}
 
@@ -595,6 +599,7 @@ augroup FTOptions
   autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
   autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
   autocmd FileType gitcommit,markdown       setlocal spell
+  autocmd FileType ruby,haml                setlocal spell
   autocmd FileType haskell                  setlocal omnifunc=necoghc#omnifunc
   autocmd FileType crontab                  set nobackup nowritebackup
   autocmd FileType help                     nnoremap <silent><buffer> q :q<cr>

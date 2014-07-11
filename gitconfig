@@ -38,7 +38,7 @@
     da = diff HEAD
     todo = grep -n -E "(TODO|FIXME)"
     search = !sh -c 'git log -p -G$1 --all' -
-    today = log --since='6am' --committer='Nick Reynolds' --pretty=format:'* %B' --no-merges
+    today = log --all --since='6am' --committer='Nick Reynolds' --pretty=format:'* %B' --no-merges
     my-commits = log --committer='Nick Reynolds'
     conflicts = grep --untracked '<<<<<<< HEAD'
 [push]

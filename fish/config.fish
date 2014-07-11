@@ -5,6 +5,7 @@ alias c 'clear'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
+alias gcd 'cd (git rev-parse --show-toplevel)'
 
 alias n notes
 alias r repo
