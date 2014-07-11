@@ -24,67 +24,67 @@ if v:version < 703
 endif
 
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vim-doc/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'aaronbieber/quicktask'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
+Plugin 'aaronbieber/quicktask'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
 Bundle 'bkad/CamelCaseMotion'
-Bundle 'briancollins/vim-jst'
-Bundle 'chrisbra/csv.vim'
-Bundle 'dag/vim-fish'
-Bundle 'danchoi/ri.vim'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'eagletmt/neco-ghc'
-Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'godlygeek/tabular'
-Bundle 'groenewege/vim-less'
-Bundle 'honza/vim-snippets'
-Bundle 'jcf/vim-latex'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kien/ctrlp.vim'
-Bundle 'lokaltog/vim-easymotion'
-Bundle 'lucapette/vim-ruby-doc'
-Bundle 'lukaszb/vim-web-indent'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'othree/xml.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'sirver/ultisnips'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-eunuch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-rails'
+Plugin 'briancollins/vim-jst'
+Plugin 'chrisbra/csv.vim'
+Plugin 'dag/vim-fish'
+Plugin 'danchoi/ri.vim'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'ecomba/vim-ruby-refactoring'
+Plugin 'godlygeek/tabular'
+Plugin 'groenewege/vim-less'
+Plugin 'honza/vim-snippets'
+Plugin 'jcf/vim-latex'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kien/ctrlp.vim'
+Plugin 'lokaltog/vim-easymotion'
+Plugin 'lucapette/vim-ruby-doc'
+Plugin 'lukaszb/vim-web-indent'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'othree/xml.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'sirver/ultisnips'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
 Bundle 'tpope/vim-rhubarb'
 Bundle 'tpope/vim-rsi'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-vinegar'
-Bundle 'tristen/vim-sparkup'
-Bundle 'ujihisa/neco-ghc'
-Bundle 'valloric/YouCompleteMe'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/LanguageTool'
-Bundle 'vim-scripts/renamer.vim'
-Bundle 'vim-scripts/slimv.vim'
-Bundle 'wavded/vim-stylus'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vinegar'
+Plugin 'tristen/vim-sparkup'
+Plugin 'valloric/YouCompleteMe'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/LanguageTool'
+Plugin 'vim-scripts/renamer.vim'
+Plugin 'vim-scripts/slimv.vim'
+Plugin 'wavded/vim-stylus'
 
 filetype plugin indent on
 
 if s:needs_vundle
-  :BundleInstall
+  :PluginInstall
 endif
 
 " }}}
@@ -122,6 +122,11 @@ set incsearch
 set showmatch
 set hlsearch
 set foldmethod=marker
+
+if has('gui_running')
+  set guifont=Meslo\ LG\ M\ for\ Powerline:h13
+  colorscheme solarized
+endif
 
 " Phonetic Cyrillic keyboard mapping
 set langmap=АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz
@@ -161,30 +166,10 @@ let g:tex_flavor = 'latex'
 
 let g:gist_open_browser_after_post = 1
 
-
-" Make UltiSnips play nice with YCM.
-" See here: https://github.com/Valloric/YouCompleteMe/issues/36
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsSnippetDirectories  = ["snips"]
-
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
 
 " LanguageTool
@@ -245,7 +230,6 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
-
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -432,6 +416,10 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Generate HTML with Pandoc and open in browser 
 nnoremap <leader>h :call PreviewMarkdown()<cr>
 
+" <ctrl-c> to redraw screen
+nnoremap <c-c> :redraw!<cr>
+
+" Changes :x => y to x: y where possible
 command! -range RubyUpdateHashSyntax :exe '<line1>,<line2>s/:\([^ ]*\)\(\s*\)=>/\1:/g'
 
 " }}}
