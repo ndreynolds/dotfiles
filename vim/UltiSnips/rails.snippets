@@ -16,37 +16,15 @@ def humanize(word):
     return word
 endglobal
 
-snippet defcreate "def create - resource"
-def create
-  @${1:model} = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
-  $0
-  respond_to do |format|
-    if @$1.save
-      flash[:notice] = '`!p res = humanize(t[1])` was successfully created.'
-      format.html { redirect_to(@$1) }
-      format.xml { render json: @$1, status: :created, location: @$1 }
-    else
-      format.html { render :action => "new" }
-      format.xml { render json: @$1.errors, status: :unprocessable_entity }
-    end
-  end
+snippet defindex "def index - resource"
+def index
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.all
 end
 endsnippet
 
-snippet defupdate "def update - resource"
-def update
-  @${1:model} = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
-  $0
-  respond_to do |format|
-    if @$1.save
-      flash[:notice] = '`!p res = humanize(t[1])` was successfully updated'
-      format.html { redirect_to(@$1) }
-      format.xml { render json: @$1, status: :created, location: @$1 }
-    else
-      format.html { render :action => "new" }
-      format.xml { render json: @$1.errors, status: :unprocessable_entity }
-    end
-  end
+snippet defshow "def show - resource"
+def show
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.find(params[:id])
 end
 endsnippet
 
@@ -56,8 +34,116 @@ def new
 end
 endsnippet
 
+snippet defcreate "def create - resource"
+def create
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
+  $0
+  respond_to do |format|
+    if @$1.save
+      format.html { redirect_to @$1, notice: '`!p res = humanize(t[1])` was successfully created.' }
+      format.json { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render action: 'new' }
+      format.json { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+endsnippet
+
 snippet defedit "def edit - resource"
 def edit
   @${1:model} = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+end
+endsnippet
+
+snippet defupdate "def update - resource"
+def update
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+  $0
+  respond_to do |format|
+    if @$1.update_attributes(params[:$1])
+      format.html { redirect_to @$1, notice: '`!p res = humanize(t[1])` was successfully updated' }
+      format.json { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render action: 'edit' }
+      format.json { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+endsnippet
+
+snippet defdestroy "def destroy - resource"
+def destroy
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+  $0
+  respond_to do |format|
+    if @$1.destroy
+      format.html { redirect_to action: 'index', notice: '`!p res = humanize(t[1])` was successfully deleted' }
+      format.json { head :no_content }
+    else
+      format.html { redirect_to action: 'index', error: '`!p res = humanize(t[1])` could not be deleted' }
+      format.json { head :unprocessable_entity }
+    end
+  end
+end
+endsnippet
+
+snippet defcrud "CRUD controller methods"
+def index
+  @${1:model} = ${2:`!p res = camelize(t[1])`}.all
+end
+
+def show
+  @$1 = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+end
+
+def new
+  @$1 = ${2:`!p res = camelize(t[1])`}.new
+end
+
+def create
+  @$1 = ${2:`!p res = camelize(t[1])`}.new(params[:$1])
+
+  respond_to do |format|
+    if @$1.save
+      format.html { redirect_to @$1, notice: '`!p res = humanize(t[1])` was successfully created.' }
+      format.json { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render action: 'new' }
+      format.json { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+
+def edit
+  @$1 = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+end
+
+def update
+  @$1 = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+
+  respond_to do |format|
+    if @$1.update_attributes(params[:$1])
+      format.html { redirect_to @$1, notice: '`!p res = humanize(t[1])` was successfully updated' }
+      format.json { render json: @$1, status: :created, location: @$1 }
+    else
+      format.html { render action: 'edit' }
+      format.json { render json: @$1.errors, status: :unprocessable_entity }
+    end
+  end
+end
+
+def destroy
+  @$1 = ${2:`!p res = camelize(t[1])`}.find(params[:id])
+
+  respond_to do |format|
+    if @$1.destroy
+      format.html { redirect_to action: 'index', notice: '`!p res = humanize(t[1])` was successfully deleted' }
+      format.json { head :no_content }
+    else
+      format.html { redirect_to action: 'index', error: '`!p res = humanize(t[1])` could not be deleted' }
+      format.json { head :unprocessable_entity }
+    end
+  end
 end
 endsnippet

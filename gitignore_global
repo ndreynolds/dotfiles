@@ -15,3 +15,5 @@ tags
 .DS_STORE
 .htaccess
 .local-files
+
+.ruby-version
