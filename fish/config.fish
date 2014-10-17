@@ -132,7 +132,7 @@ end
 
 set fish_path $HOME/.oh-my-fish
 set fish_theme ndr 
-set fish_plugins git brew rake rbenv rails bundler
+set fish_plugins git brew rbenv rails bundler
 . $fish_path/oh-my-fish.fish
 
 

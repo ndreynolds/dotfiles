@@ -1,0 +1,53 @@
+#!/bin/sh
+
+## Homebrew Packages & Apps
+
+PACKAGES=(
+  caskroom/cask/brew-cask
+  cmake
+  fish
+  gcc
+  git
+  leinigen
+  node 
+  pcre
+  rbenv 
+  readline
+  ruby-build 
+  pow
+)
+
+APPS=(
+  anvil
+  caffeine
+  cloud
+  google-chrome
+  macvim
+  mpv
+  rdio
+  skitch
+  slate
+  transmission
+  virtualbox
+  vagrant
+  vagrant-bar
+)
+
+
+## Bootstrap
+
+# Install xCode / OS X Command Line Tools
+xcode-select --install
+
+# Install Homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install ${PACKAGES[*]}
+brew cask install ${APPS[*]}
+
+# Install oh-my-fish
+git clone git://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish
+
+# Grab colors and fonts for Terminal.app
+git clone --depth 1 https://github.com/altercation/solarized ~/Downloads/solarized
+git clone --depth 1 https://github.com/Lokaltog/powerline-fonts ~/Downloads/powerline-fonts

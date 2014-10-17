@@ -53,6 +53,3 @@ bind space:ctrl;alt  chain ${full} | ${centered}
 # bind j:cmd     focus down
 # bind k:cmd;alt focus behind
 # bind j:cmd;alt focus behind
-
-bind i:ctrl;alt focus 'iTerm'
-bind o:ctrl;alt focus 'Google Chrome'

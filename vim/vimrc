@@ -62,13 +62,13 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-eunuch'
+"Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-rails'
 Bundle 'tpope/vim-rhubarb'
-Bundle 'tpope/vim-rsi'
+"Bundle 'tpope/vim-rsi'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tristen/vim-sparkup'
@@ -203,26 +203,13 @@ if filereadable('/usr/local/bin/git')
 endif
 
 " Solarized colorscheme
-"
 " Only active if within the matching $ITERM_PROFILE.
-if $ITERM_PROFILE == 'SolarizedLight' || $ITERM_PROFILE == 'SolarizedDark'
-  if $ITERM_PROFILE == 'SolarizedLight'
-    set background=light
-  elseif $ITERM_PROFILE == 'SolarizedDark'
-    set background=dark
-  endif
-
+if $COLORSCHEME == "solarized"
+  set background=dark
   syntax enable
   colorscheme solarized
-  set t_Co=16
+  "set t_Co=16
 endif
-
-if $ITERM_PROFILE == 'Darkside'
-  syntax enable
-  colorscheme molokai
-  set t_Co=256
-endif
-
 
 " The Silver Searcher
 if executable('ag')
