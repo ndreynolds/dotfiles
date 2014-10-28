@@ -123,11 +123,6 @@ set showmatch
 set hlsearch
 set foldmethod=marker
 
-if has('gui_running')
-  set guifont=Meslo\ LG\ M\ for\ Powerline:h13
-  colorscheme solarized
-endif
-
 " Phonetic Cyrillic keyboard mapping
 set langmap=АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz
 
@@ -203,12 +198,17 @@ if filereadable('/usr/local/bin/git')
 endif
 
 " Solarized colorscheme
-" Only active if within the matching $ITERM_PROFILE.
-if $COLORSCHEME == "solarized"
-  set background=dark
-  syntax enable
+" Activate if the $COLORSCHEME is set to "solarized" or within a GUI:
+if has('gui_running') 
+  set guifont=Meslo\ LG\ M\ for\ Powerline:h13
   colorscheme solarized
-  "set t_Co=16
+endif
+
+if $COLORSCHEME == "solarized"
+  set background=light
+  syntax enable
+  let g:solarized_termcolors=256
+  colorscheme solarized
 endif
 
 " The Silver Searcher
@@ -228,12 +228,6 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 
 let g:ruby_doc_command='open'
-
-" let g:startify_custom_header =
-"       \ map(split(system('$SHELL -c "vim --version | head -2"'), '\n'), '"   ". v:val') + ['','']
-
-" let g:startify_custom_footer = ['',''] +
-"       \ map(split(system('fortune -n 500 -s | cowsay'), '\n'), '"   ". v:val') + ['','']
 
 
 " }}}

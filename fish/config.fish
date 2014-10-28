@@ -54,8 +54,8 @@ set -x VIM_BINARY vim
 set -x MVIM_BINARY mvim 
 
 if contains (command uname) 'Darwin'
-    set -x VIM_BINARY '/Applications/MacVim.app/Contents/MacOS/Vim'
-    set -x MVIM_BINARY '/Applications/MacVim.app/Contents/MacOS/MacVim'
+    set -x VIM_BINARY '~/Applications/MacVim.app/Contents/MacOS/Vim'
+    set -x MVIM_BINARY '~/Applications/MacVim.app/Contents/MacOS/MacVim'
     alias vim $VIM_BINARY
     alias mvim $MVIM_BINARY
 end

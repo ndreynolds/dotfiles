@@ -8,12 +8,13 @@ PACKAGES=(
   fish
   gcc
   git
-  leinigen
+  leiningen
   node 
   pcre
   rbenv 
   readline
   ruby-build 
+  pandoc
   pow
 )
 
@@ -25,6 +26,7 @@ APPS=(
   macvim
   mpv
   rdio
+  sequel-pro
   skitch
   slate
   transmission
@@ -37,16 +39,13 @@ APPS=(
 ## Bootstrap
 
 # Install xCode / OS X Command Line Tools
-xcode-select --install
+xcode-select -p || xcode-select --install
 
 # Install Homebrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew install ${PACKAGES[*]}
 brew cask install ${APPS[*]}
-
-# Install oh-my-fish
-git clone git://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish
 
 # Grab colors and fonts for Terminal.app
 git clone --depth 1 https://github.com/altercation/solarized ~/Downloads/solarized
