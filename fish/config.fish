@@ -139,4 +139,6 @@ set fish_plugins git brew rbenv rails bundler
 # startup
 # -------
 
-bash ~/dotfiles/bin/dotfiles-update
+if status --is-interactive
+    bash ~/dotfiles/bin/dotfiles-update
+end
