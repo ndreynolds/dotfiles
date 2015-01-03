@@ -3,88 +3,91 @@
 " Repository: http://github.com/ndreynolds/dotfiles
 
 
-" Vundle & Plugins ---------------------------------------------- {{{ 
+" Plugins ------------------------------------------------------- {{{ 
 
 set shell=/bin/sh
 set nocompatible
 runtime! macros/matchit.vim
 filetype off
 
-let s:needs_vundle = !isdirectory($HOME . '/.vim/bundle/vundle')
-if s:needs_vundle
-  echo "-------------------------------"
-  echo "Installing Vundle... Sit tight."
+let s:needs_vimplug = !filereadable($HOME . '/.vim/autoload/plug.vim')
+if s:needs_vimplug
+  echo "---------------------------------"
+  echo "Installing vim-plug... Sit tight."
   echo "-------------------------------\n"
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  silent !mkdir -p ~/.vim/autoload
+  silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 if v:version < 703
   let g:loaded_youcompleteme = 1
 endif
 
-set rtp+=~/.vim/bundle/vundle/
-set rtp+=~/.vim/bundle/vim-doc/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/vundle'
 
-Plugin 'aaronbieber/quicktask'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Bundle 'bkad/CamelCaseMotion'
-Plugin 'briancollins/vim-jst'
-Plugin 'chrisbra/csv.vim'
-Plugin 'dag/vim-fish'
-Plugin 'danchoi/ri.vim'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'eagletmt/neco-ghc'
-Plugin 'ecomba/vim-ruby-refactoring'
-Plugin 'godlygeek/tabular'
-Plugin 'groenewege/vim-less'
-Plugin 'honza/vim-snippets'
-Plugin 'jcf/vim-latex'
-Plugin 'kana/vim-textobj-user'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
-Plugin 'lokaltog/vim-easymotion'
-Plugin 'lucapette/vim-ruby-doc'
-Plugin 'lukaszb/vim-web-indent'
-Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'othree/xml.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'sirver/ultisnips'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-endwise'
-"Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-rails'
-Bundle 'tpope/vim-rhubarb'
-"Bundle 'tpope/vim-rsi'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tristen/vim-sparkup'
-Plugin 'valloric/YouCompleteMe'
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/LanguageTool'
-Plugin 'vim-scripts/renamer.vim'
-Plugin 'vim-scripts/slimv.vim'
-Plugin 'wavded/vim-stylus'
+" Language Support ---------------------------------------------
 
-filetype plugin indent on
+Plug 'briancollins/vim-jst'
+Plug 'dag/vim-fish'
+Plug 'digitaltoad/vim-jade'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'groenewege/vim-less'
+Plug 'jcf/vim-latex'
+Plug 'kchmck/vim-coffee-script'
+Plug 'lukaszb/vim-web-indent'
+Plug 'othree/xml.vim'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-markdown'
+Plug 'wavded/vim-stylus'
+"Plug 'chrisbra/csv.vim'
+Plug 'eagletmt/neco-ghc'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-ruby/vim-ruby'
+Plug 'wting/rust.vim'
 
-if s:needs_vundle
-  :PluginInstall
+" Colorschemes / Visual ----------------------------------------
+
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+
+" Motions / Text Objects / Mappings ----------------------------
+
+"Plug 'bkad/CamelCaseMotion'
+Plug 'godlygeek/tabular'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'lokaltog/vim-easymotion'
+Plug 'kana/vim-textobj-user'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+
+" Utilities ----------------------------------------------------
+
+Plug 'honza/vim-snippets'
+Plug 'kien/ctrlp.vim'
+" Plug 'mattn/gist-vim'
+" Plug 'mattn/webapi-vim'
+Plug 'scrooloose/syntastic'
+Plug 'sirver/ultisnips'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-vinegar'
+Plug 'valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+Plug 'vim-scripts/LanguageTool'
+Plug 'vim-scripts/renamer.vim'
+
+call plug#end()
+
+if s:needs_vimplug
+  :PlugInstall
 endif
 
 " }}}
@@ -166,6 +169,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
+let g:rsi_no_meta = 1
 
 " LanguageTool
 let jar = '/usr/local/Cellar/languagetool/2.3/libexec/languagetool-commandline.jar'
@@ -174,40 +178,14 @@ if filereadable(jar)
 endif
 let g:languagetool_disable_rules = 'WHITESPACE_RULE,EN_QUOTES,TYPOGRAFISCHE_ANFUEHRUNGSZEICHEN'
 
-" Slimv servers
-" if has('unix') && system('uname') =~ 'Darwin'
-"   function! BuildTermCmd(cmd)
-"     return '!osascript -e "tell application \"Terminal\" to do script \"' . a:cmd . '\""'
-"   endfunction
-
-"   "let g:slimv_swank_cmd = BuildTermCmd('sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp')
-"   "let g:slimv_swank_scheme = BuildTermCmd("scheme --eval '(let loop () (start-swank) (loop))'")
-" endif
-
 " airline
 if $POWERLINE_FANCY
   let g:airline_powerline_fonts=1
 endif
 
-" Set git exec path 
-"
-" `push.default = simple` throws an error with Apple Git 1.7
-" Try to find and use 1.8
-if filereadable('/usr/local/bin/git')
-  let g:fugitive_git_executable = '/usr/local/bin/git'
-endif
-
-" Solarized colorscheme
-" Activate if the $COLORSCHEME is set to "solarized" or within a GUI:
-if has('gui_running') 
-  set guifont=Meslo\ LG\ M\ for\ Powerline:h13
-  colorscheme solarized
-endif
-
 if $COLORSCHEME == "solarized"
-  set background=light
   syntax enable
-  let g:solarized_termcolors=256
+  set background=dark
   colorscheme solarized
 endif
 
@@ -217,10 +195,6 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
-
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeHighlightCursorLine = 1
 
 let g:necoghc_enable_detailed_browse = 1
 
@@ -280,20 +254,8 @@ command! -bang -nargs=* -complete=file WQ wq<bang> <args>
 command! -bang -nargs=* -complete=file Q q<bang> <args>
 command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
 
-" No-shift-key-required alternatives
-" nnoremap <leader>w :w<cr>
-" nnoremap <leader>wq :wq<cr>
-
-" Open or close the NERDTree split
-nnoremap <F5> :NERDTreeToggle<cr>
-
 " Open or close the Gundo split
 nnoremap <F6> :GundoToggle<cr>
-
-" vim-cakephp shortcuts
-nnoremap <leader>cv :Cview<cr>
-nnoremap <leader>cc :Ccontroller<cr>
-nnoremap <leader>cm :Cmodel<cr>
 
 " vim-rails shortcuts
 nnoremap <leader>rv :Rview<cr>
@@ -320,9 +282,6 @@ nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
 " Give the buffer a header comment
 nnoremap <leader>hc :call HeaderComment()<cr>
 
-" Write ROs as root
-cnoremap w!! w !sudo tee % > /dev/null
-
 " Write file with 'eventignore' set.
 cnoremap w-- noautocmd w
 
@@ -335,19 +294,12 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 " Source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Set current directory to directory of file
-nnoremap <leader>cd :lcd %:p:h<cr>:pwd<cr>
-
 " Quick open some URLs.
 nnoremap <leader>ox :OpenURLAtCursor<cr>
 vnoremap <leader>ox :OpenURLAtCursor<cr>
 nnoremap <leader>og :OpenURL google.com<cr>
 nnoremap <leader>om :OpenURL mail.google.com<cr>
 nnoremap <leader>oh :OpenURL github.com<cr>
-nnoremap <leader>on :OpenURL news.ycombinator.com<cr>
-nnoremap <leader>oc :OpenURL my.cl.ly<cr>
-nnoremap <leader>os :OpenURL grooveshark.com<cr>
-nnoremap <leader>ov :OpenURL tnerual.eriogerg.free.fr/vimqrc.html<cr>
 nnoremap <leader>ol :OpenURL localhost<cr>
 
 " Show definition of word under cursor
@@ -490,10 +442,6 @@ function! s:VSetSearch()
   let @s = temp
 endfunction
 
-function! s:ReloadChrome()
-  silent call system("osascript ~/dotfiles/bin/reload-chrome.scpt &")
-endfunction
-
 " }}}
 
 
@@ -542,10 +490,6 @@ au BufNewFile,BufRead *.json set filetype=javascript
 
 " Header files should assume C (most likely for me)
 au BufNewFile,BufRead *.h set filetype=c
-
-if executable("osascript") && exists('g:autoloaded_rails')
-  au BufWritePost * call s:ReloadChrome()
-endif
 
 au QuickFixCmdPost *grep* cwindow
 
