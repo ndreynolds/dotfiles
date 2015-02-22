@@ -33,13 +33,17 @@ elif [ "$1" == "sync" ]; then
   IFS=: read -a DIRS <<< "$DUPLICITY_DIRS"
   for dir in "${DIRS[@]}"; do
     echo "Including: $dir"
-    INCLUDES="$INCLUDES --include $dir"
+    INCLUDES="$INCLUDES --include '$dir'"
   done
 
   ulimit -n 1024
 
-  /usr/local/bin/duplicity $INCLUDES --exclude '**' --exclude '/.*' --volsize 250 \
-    --allow-source-mismatch --full-if-older-than 30D / "s3+http://$DUPLICITY_BUCKET_ID" 
+  CMD="/usr/local/bin/duplicity $INCLUDES --exclude '**' --exclude '/.*' --volsize 250
+    --allow-source-mismatch --full-if-older-than 30D / 's3+http://$DUPLICITY_BUCKET_ID'"
+
+  # Use eval so that $INCLUDES directories with (escaped) spaces are not treated
+  # as multiple arguments. $DUPLICITY_DIRS should be a trusted source.
+  eval $CMD
 
 else
 

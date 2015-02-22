@@ -26,6 +26,7 @@ alias wordfreq "perl -0777 -lape's/\s+/\n/g' $1 | sort | uniq -c | sort -nr"
 alias splive 'vim -c "OpenScratchpad" -c only'
 alias todo 'vim "$HOME/repos/todo/todo.txt"'
 alias rpry 'pry -r ./config/environment'
+alias read-later "osascript -e 'tell application \"Safari\" to add reading list item \"$argv[1]\"'"
 
 alias ..    'cd ..'
 alias ...   'cd ../..'
@@ -54,8 +55,8 @@ set -x VIM_BINARY vim
 set -x MVIM_BINARY mvim 
 
 if contains (command uname) 'Darwin'
-    set -x VIM_BINARY '~/Applications/MacVim.app/Contents/MacOS/Vim'
-    set -x MVIM_BINARY '~/Applications/MacVim.app/Contents/MacOS/MacVim'
+    set -x VIM_BINARY "$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
+    set -x MVIM_BINARY "$HOME/Applications/MacVim.app/Contents/MacOS/MacVim"
     alias vim $VIM_BINARY
     alias mvim $MVIM_BINARY
 end
@@ -114,9 +115,9 @@ complete -x -c ankid -c a -a "(ls $HOME/repos/anki-imports)"
 # PATH config
 # -----------
 
-set -x PATH /usr/local/bin $PATH
-set -x PATH /usr/local/sbin $PATH
-set -x PATH $HOME/dotfiles/bin $PATH
+set PATH /usr/local/bin $PATH
+set PATH /usr/local/sbin $PATH
+set PATH $HOME/dotfiles/bin $PATH
 
 
 # local config

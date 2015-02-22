@@ -32,11 +32,13 @@ Plug 'briancollins/vim-jst'
 Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-jade'
 Plug 'ecomba/vim-ruby-refactoring'
+Plug 'fatih/vim-go'
 Plug 'groenewege/vim-less'
 Plug 'jcf/vim-latex'
 Plug 'kchmck/vim-coffee-script'
 Plug 'lukaszb/vim-web-indent'
 Plug 'othree/xml.vim'
+Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown'
 Plug 'wavded/vim-stylus'
@@ -50,6 +52,7 @@ Plug 'wting/rust.vim'
 " Colorschemes / Visual ----------------------------------------
 
 Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
 
 " Motions / Text Objects / Mappings ----------------------------
@@ -70,6 +73,8 @@ Plug 'honza/vim-snippets'
 Plug 'kien/ctrlp.vim'
 " Plug 'mattn/gist-vim'
 " Plug 'mattn/webapi-vim'
+Plug 'majutsushi/tagbar'
+Plug 'ryanss/vim-hackernews'
 Plug 'scrooloose/syntastic'
 Plug 'sirver/ultisnips'
 Plug 'sjl/gundo.vim'
@@ -81,6 +86,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-vinegar'
 Plug 'valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+Plug 'oplatek/Conque-Shell'
 Plug 'vim-scripts/LanguageTool'
 Plug 'vim-scripts/renamer.vim'
 
@@ -156,9 +162,15 @@ endif
 
 " Plugin Configuration ------------------------------------------- {{{
 
-let g:syntastic_javascript_checker = 'jshint'
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let g:syntastic_ruby_checkers = [ 'rubocop', 'mri' ]
 let g:syntastic_ruby_exec = '~/.rbenv/shims/ruby'
+" Ignore errors due to custom tags.
+let g:syntastic_html_tidy_ignore_errors = [ 'not recognized', 'discarding unexpected', "plain text isn't allowed in" ]
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 let g:tex_flavor = 'latex'
 
@@ -168,6 +180,36 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
+
+if executable('lushtags')
+    let g:tagbar_type_haskell = {
+        \ 'ctagsbin' : 'lushtags',
+        \ 'ctagsargs' : '--ignore-parse-error --',
+        \ 'kinds' : [
+            \ 'm:module:0',
+            \ 'e:exports:1',
+            \ 'i:imports:1',
+            \ 't:declarations:0',
+            \ 'd:declarations:1',
+            \ 'n:declarations:1',
+            \ 'f:functions:0',
+            \ 'c:constructors:0'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 'd' : 'data',
+            \ 'n' : 'newtype',
+            \ 'c' : 'constructor',
+            \ 't' : 'type'
+        \ },
+        \ 'scope2kind' : {
+            \ 'data' : 'd',
+            \ 'newtype' : 'n',
+            \ 'constructor' : 'c',
+            \ 'type' : 't'
+        \ }
+    \ }
+endif
 
 let g:rsi_no_meta = 1
 
@@ -183,7 +225,7 @@ if $POWERLINE_FANCY
   let g:airline_powerline_fonts=1
 endif
 
-if $COLORSCHEME == "solarized"
+if $COLORSCHEME == 'solarized'
   syntax enable
   set background=dark
   colorscheme solarized

@@ -6,8 +6,11 @@ PACKAGES=(
   caskroom/cask/brew-cask
   cmake
   fish
+  fzf
   gcc
   git
+  htop
+  imagemagick
   leiningen
   node 
   pcre
@@ -16,13 +19,18 @@ PACKAGES=(
   ruby-build 
   pandoc
   pow
+  tree
+  unrar
+  wget
 )
 
 APPS=(
   anvil
   caffeine
   cloud
+  firefox
   google-chrome
+  haskell-platform
   macvim
   mpv
   rdio
@@ -36,17 +44,22 @@ APPS=(
 )
 
 
-## Bootstrap
+### Bootstrap
 
-# Install xCode / OS X Command Line Tools
+## Install xCode / OS X Command Line Tools
 xcode-select -p || xcode-select --install
 
-# Install Homebrew
+## Install Homebrew
 which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew install ${PACKAGES[*]}
 brew cask install ${APPS[*]}
 
-# Grab colors and fonts for Terminal.app
+## Homebrew Package Follow-ups
+
+# Install fzf shell extensions - this should be done whenever fzf is updated
+/usr/local/Cellar/fzf/$(fzf --version)/install
+
+## Grab colors and fonts for Terminal.app
 git clone --depth 1 https://github.com/altercation/solarized ~/Downloads/solarized
 git clone --depth 1 https://github.com/Lokaltog/powerline-fonts ~/Downloads/powerline-fonts

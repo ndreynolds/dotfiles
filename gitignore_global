@@ -16,4 +16,6 @@ tags
 .htaccess
 .local-files
 
+TODO.local
+
 .ruby-version
