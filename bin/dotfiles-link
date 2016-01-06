@@ -36,16 +36,7 @@ def link(src, dst)
   File.symlink(File.join(DOTFILES, src), File.join(Dir.home, dst))
 end
 
-unless Dir.exists? File.join(Dir.home, '.oh-my-zsh')
-  `git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh`
-end
-
-unless Dir.exists? File.join(Dir.home, '.oh-my-fish')
-  `git clone https://github.com/bpinto/oh-my-fish ~/.oh-my-fish`
-end
-
 `mkdir -p ~/.config/fish`
-`mkdir -p ~/.oh-my-fish/themes/ndr`
 
 populate_should_link
 
@@ -53,8 +44,6 @@ link "bash_profile",                ".bash_profile"
 link "bashrc",                      ".bashrc"
 link "emacs",	                    ".emacs"
 link "fish/config.fish",            ".config/fish/config.fish"
-link "fish/fish_prompt.fish",       ".oh-my-fish/themes/ndr/fish_prompt.fish"
-link "fish/fish_right_prompt.fish", ".oh-my-fish/themes/ndr/fish_right_prompt.fish"
 link "ghci",                        ".ghci"
 link "git_template",                ".git_template"
 link "gitconfig",                   ".gitconfig"
@@ -73,7 +62,6 @@ link "tmux.conf",                   ".tmux.conf"
 link "tmuxinator",                  ".tmuxinator"
 link "vim",                         ".vim"
 link "vim/vimrc",                   ".vimrc"
-link "zsh/ndr.zsh",                 ".oh-my-zsh/themes/ndr.zsh"
 link "zsh/zshrc",                   ".zshrc"
 
 warn_unlinked
