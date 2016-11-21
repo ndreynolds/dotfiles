@@ -5,73 +5,54 @@ alias c 'clear'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
-alias gcd 'cd (git rev-parse --show-toplevel)'
-
-alias n notes
-alias r repo
-alias a ankid
-
-alias v vim
 
 alias ev 'vim ~/.vimrc'
 alias ef 'vim ~/.config/fish/config.fish'
+alias el 'vim ~/.config/fish/local.fish'
 alias et 'vim ~/.tmux.conf'
 alias eg 'vim ~/.gitconfig'
 
-alias tmux 'env TERM=screen-256color-bce tmux'
-alias mux 'tmuxinator'
+abbr r 'bundle exec rspec'
+abbr rs 'bundle exec rails server'
+abbr rc 'bundle exec rails console'
+abbr rk 'bundle exec rake'
+abbr rspec-without-features 'bundle exec rspec --exclude-pattern "spec/features/**/*"'
+abbr rails-db-console 'bundle exec rails dbconsole'
+abbr rails-open-last-migration "$EDITOR (ls db/migrate/* | tail -n1)"
+
+abbr g 'git'
+abbr gs 'git s'
+abbr gc 'git commit'
+alias gcd 'cd (git rev-parse --show-toplevel)'
+
 alias serve 'python -m SimpleHTTPServer'
-alias sp 'vim ~/repos/scratchpad/scratchpad.md'
+alias pj 'python -m json.tool | pygmentize -l json'
+alias bigfiles "tree -ah --du $argv | ack \"\[(\d{3,}M|\d+.*G)\]\""
 alias wordfreq "perl -0777 -lape's/\s+/\n/g' $1 | sort | uniq -c | sort -nr"
-alias splive 'vim -c "OpenScratchpad" -c only'
-alias todo 'vim "$HOME/repos/todo/todo.txt"'
-alias rpry 'pry -r ./config/environment'
-alias read-later "osascript -e 'tell application \"Safari\" to add reading list item \"$argv[1]\"'"
-
-alias ..    'cd ..'
-alias ...   'cd ../..'
-alias ....  'cd ../../..'
-alias ..... 'cd ../../../..'
-
-alias l1 'tree --dirsfirst -ChFL 1'
-alias l2 'tree --dirsfirst -ChFL 2'
-alias l3 'tree --dirsfirst -ChFL 3'
-alias l4 'tree --dirsfirst -ChFL 4'
-alias l5 'tree --dirsfirst -ChFL 5'
-alias l6 'tree --dirsfirst -ChFL 6'
-
-alias ll1 'tree --dirsfirst -ChFupDaL 1'
-alias ll2 'tree --dirsfirst -ChFupDaL 2'
-alias ll3 'tree --dirsfirst -ChFupDaL 3'
-alias ll4 'tree --dirsfirst -ChFupDaL 4'
-alias ll5 'tree --dirsfirst -ChFupDaL 5'
-alias ll6 'tree --dirsfirst -ChFupDaL 6'
 
 
 # environment
 # -----------
 
 set -x VIM_BINARY vim
-set -x MVIM_BINARY mvim 
+set -x MVIM_BINARY mvim
 
 if contains (command uname) 'Darwin'
-    set -x VIM_BINARY "$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
+    # set -x VIM_BINARY "$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
+    set -x VIM_BINARY "/usr/local/bin/nvim"
     set -x MVIM_BINARY "$HOME/Applications/MacVim.app/Contents/MacOS/MacVim"
     alias vim $VIM_BINARY
     alias mvim $MVIM_BINARY
 end
 
 set -x EDITOR $VIM_BINARY
+set -x AUTHOR 'Nick Reynolds'
 
 
 # functions
 # ---------
 
-function pj
-    python -m json.tool | pygmentize -l json
-end
-
-function bigfiles 
+function bigfiles
     tree -ah --du $argv | ack "\[(\d{3,}M|\d+.*G)\]"
 end
 
@@ -99,18 +80,7 @@ end
 
 complete -x -c journal -a "read yesterday (ls $HOME/repos/journal/entries)"
 
-function repo
-    cd "$HOME/repos/$argv[1]"
-end
-
-complete -x -c repo -a "(ls $HOME/repos)"
-
-function ankid
-    vim "$HOME/repos/anki-imports/$argv[1]"
-end
-
-complete -x -c ankid -c a -a "(ls $HOME/repos/anki-imports)"
-
+complete -x -c spotify -c a -a "play next prev pos pause quit vol status share toggle"
 
 # PATH config
 # -----------
@@ -124,22 +94,10 @@ set PATH $HOME/dotfiles/bin $PATH
 # ------------
 
 if test -s $HOME/.config/fish/local.fish
-    . $HOME/.config/fish/local.fish
+    source $HOME/.config/fish/local.fish
 end
 
-
-# oh-my-fish config
-# -----------------
-
-# Path to Oh My Fish install.
-set -gx OMF_PATH "/Users/nick.reynolds/.local/share/omf"
-
-# Customize Oh My Fish configuration path.
-#set -gx OMF_CONFIG "/Users/nick.reynolds/.config/omf"
-
-# Load oh-my-fish configuration.
-source $OMF_PATH/init.fish
-
+source $HOME/.config/fish/functions/fish_user_key_bindings.fish
 
 # startup
 # -------

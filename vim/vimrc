@@ -3,32 +3,19 @@
 " Repository: http://github.com/ndreynolds/dotfiles
 
 
-" Plugins ------------------------------------------------------- {{{ 
+" Plugins ------------------------------------------------------- {{{
 
 set shell=/bin/sh
 set nocompatible
-runtime! macros/matchit.vim
-filetype off
 
-let s:needs_vimplug = !filereadable($HOME . '/.vim/autoload/plug.vim')
-if s:needs_vimplug
-  echo "---------------------------------"
-  echo "Installing vim-plug... Sit tight."
-  echo "-------------------------------\n"
-  silent !mkdir -p ~/.vim/autoload
-  silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
-
-if v:version < 703
-  let g:loaded_youcompleteme = 1
+if !filereadable($HOME . '/.vim/autoload/plug.vim')
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 call plug#begin('~/.vim/plugged')
 
-
 " Language Support ---------------------------------------------
 
-Plug 'briancollins/vim-jst'
 Plug 'dag/vim-fish'
 Plug 'digitaltoad/vim-jade'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -36,29 +23,34 @@ Plug 'fatih/vim-go'
 Plug 'groenewege/vim-less'
 Plug 'jcf/vim-latex'
 Plug 'kchmck/vim-coffee-script'
-Plug 'lukaszb/vim-web-indent'
-Plug 'othree/xml.vim'
-Plug 'pbrisbin/vim-syntax-shakespeare'
+" Plug 'lukaszb/vim-web-indent'
+" Plug 'pangloss/vim-javascript'
+" Plug 'mxw/vim-jsx'
+" Plug 'othree/xml.vim'
+" Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown'
-Plug 'wavded/vim-stylus'
-"Plug 'chrisbra/csv.vim'
+" Plug 'wavded/vim-stylus'
+" Plug 'chrisbra/csv.vim'
 Plug 'eagletmt/neco-ghc'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-ruby/vim-ruby'
 Plug 'wting/rust.vim'
+Plug 'metakirby5/codi.vim'
 
 " Colorschemes / Visual ----------------------------------------
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'junegunn/seoul256.vim'
+Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'bling/vim-airline'
 
 " Motions / Text Objects / Mappings ----------------------------
 
-"Plug 'bkad/CamelCaseMotion'
-Plug 'godlygeek/tabular'
+" Plug 'bkad/CamelCaseMotion'
+" Plug 'godlygeek/tabular'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'lokaltog/vim-easymotion'
 Plug 'kana/vim-textobj-user'
@@ -69,32 +61,29 @@ Plug 'tpope/vim-surround'
 
 " Utilities ----------------------------------------------------
 
+Plug 'bogado/file-line'
 Plug 'honza/vim-snippets'
-Plug 'kien/ctrlp.vim'
-" Plug 'mattn/gist-vim'
-" Plug 'mattn/webapi-vim'
+Plug 'itchyny/calendar.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Plug 'neomake/neomake'
 Plug 'majutsushi/tagbar'
-Plug 'ryanss/vim-hackernews'
-Plug 'scrooloose/syntastic'
-Plug 'sirver/ultisnips'
+" Plug 'scrooloose/syntastic'
+" Plug 'w0rp/ale'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
-"Plug 'tpope/vim-rhubarb'
+" Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-vinegar'
-Plug 'valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
-Plug 'oplatek/Conque-Shell'
-Plug 'vim-scripts/LanguageTool'
+" Plug 'vim-scripts/LanguageTool'
 Plug 'vim-scripts/renamer.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
-
-if s:needs_vimplug
-  :PlugInstall
-endif
 
 " }}}
 
@@ -132,10 +121,7 @@ set showmatch
 set hlsearch
 set foldmethod=marker
 
-" Phonetic Cyrillic keyboard mapping
-set langmap=АБЦДЕФГЧИЙКЛМНОПЯРСТУВШХЫЗ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,абцдефгчийклмнопярстувшхыз;abcdefghijklmnopqrstuvwxyz
-
-" Store swap, backup and undo files within .vim/ 
+" Store swap, backup and undo files within .vim/
 " Make the directories as needed.
 
 if !isdirectory($HOME . '/.vim/swap')
@@ -162,57 +148,6 @@ endif
 
 " Plugin Configuration ------------------------------------------- {{{
 
-let g:syntastic_ruby_checkers = [ 'rubocop', 'mri' ]
-let g:syntastic_ruby_exec = '~/.rbenv/shims/ruby'
-" Ignore errors due to custom tags.
-let g:syntastic_html_tidy_ignore_errors = [ 'not recognized', 'discarding unexpected', "plain text isn't allowed in" ]
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:tex_flavor = 'latex'
-
-let g:gist_open_browser_after_post = 1
-
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
-if executable('lushtags')
-    let g:tagbar_type_haskell = {
-        \ 'ctagsbin' : 'lushtags',
-        \ 'ctagsargs' : '--ignore-parse-error --',
-        \ 'kinds' : [
-            \ 'm:module:0',
-            \ 'e:exports:1',
-            \ 'i:imports:1',
-            \ 't:declarations:0',
-            \ 'd:declarations:1',
-            \ 'n:declarations:1',
-            \ 'f:functions:0',
-            \ 'c:constructors:0'
-        \ ],
-        \ 'sro' : '.',
-        \ 'kind2scope' : {
-            \ 'd' : 'data',
-            \ 'n' : 'newtype',
-            \ 'c' : 'constructor',
-            \ 't' : 'type'
-        \ },
-        \ 'scope2kind' : {
-            \ 'data' : 'd',
-            \ 'newtype' : 'n',
-            \ 'constructor' : 'c',
-            \ 'type' : 't'
-        \ }
-    \ }
-endif
-
-let g:rsi_no_meta = 1
-
 " LanguageTool
 let jar = '/usr/local/Cellar/languagetool/2.3/libexec/languagetool-commandline.jar'
 if filereadable(jar)
@@ -225,25 +160,19 @@ if $POWERLINE_FANCY
   let g:airline_powerline_fonts=1
 endif
 
-if $COLORSCHEME == 'solarized'
-  syntax enable
-  set background=dark
-  colorscheme solarized
+" colorscheme
+if has('termguicolors')
+  set termguicolors
 endif
+let g:airline_theme='quantum'
+set background=dark
+colorscheme quantum
 
-" The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
+" rsi
+let g:rsi_no_meta = 1
 
-let g:necoghc_enable_detailed_browse = 1
-
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-let g:ruby_doc_command='open'
+" fzf
+let g:fzf_files_options = '--preview "ccat --color=always {}"'
 
 
 " }}}
@@ -255,9 +184,6 @@ let g:ruby_doc_command='open'
 let mapleader = ","
 let maplocalleader = ","
 
-" jj has same behavior as <ESC>
-inoremap jj <ESC>
-
 " Make Y behave like C & D
 nnoremap Y y$
 
@@ -267,25 +193,14 @@ cnoremap %/ <c-r>=expand('%:p:h')<CR>/
 " Clear search highlighting
 nnoremap <silent> <c-l> :nohl<CR><c-l>
 
-" Arrow keys move at turbo speed
-" (Off until I stop using them to move around files)
-" nnoremap <left>  4h
-" nnoremap <down>  4j
-" nnoremap <up>    4k
-" nnoremap <right> 4l
-" vnoremap <left>  4h
-" vnoremap <down>  4j
-" vnoremap <up>    4k
-" vnoremap <right> 4l
-
-" Stop vim-latex from stealing <c-j> 
-nnoremap <leader>m <Plug>IMAP_JumpForward
-
 " CTRL-{j,k,l,h} to switch windows
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l 
-nnoremap <c-h> <c-w>h 
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+if has('nvim')
+  nnoremap <bs> <c-w>h
+endif
 
 " Catch accidental shift keys
 command! -bang -nargs=* -complete=file E e<bang> <args>
@@ -296,9 +211,6 @@ command! -bang -nargs=* -complete=file WQ wq<bang> <args>
 command! -bang -nargs=* -complete=file Q q<bang> <args>
 command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
 
-" Open or close the Gundo split
-nnoremap <F6> :GundoToggle<cr>
-
 " vim-rails shortcuts
 nnoremap <leader>rv :Rview<cr>
 nnoremap <leader>rc :Rcontroller<cr>
@@ -307,13 +219,7 @@ nnoremap <leader>rm :Rmodel<cr>
 " fugitive shortcuts
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>ga :Gadd<cr>
-" (gc is used by TComment)
-nnoremap <leader>go :Gcheckout<cr> 
-nnoremap <leader>gm :Gmove<cr>
-nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gh :Gbrowse<cr>
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<leader><space>'
@@ -321,14 +227,8 @@ let g:EasyMotion_leader_key = '<leader><space>'
 " Reflow text to 80 cols
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
 
-" Give the buffer a header comment
-nnoremap <leader>hc :call HeaderComment()<cr>
-
 " Write file with 'eventignore' set.
 cnoremap w-- noautocmd w
-
-" Toggle spellcheck
-nnoremap <leader>sp :set spell!<cr>
 
 " Edit vimrc
 nnoremap <leader>ev :e $MYVIMRC<cr>
@@ -336,30 +236,10 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 " Source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Quick open some URLs.
-nnoremap <leader>ox :OpenURLAtCursor<cr>
-vnoremap <leader>ox :OpenURLAtCursor<cr>
-nnoremap <leader>og :OpenURL google.com<cr>
-nnoremap <leader>om :OpenURL mail.google.com<cr>
-nnoremap <leader>oh :OpenURL github.com<cr>
-nnoremap <leader>ol :OpenURL localhost<cr>
-
-" Show definition of word under cursor
-nnoremap <leader>d :call OpenURL("dict.cc/?s=" . expand("<cword>"))<cr>
-
-" Hacky clipboard workaround for Mac if compiled without clipboard support
-if !has("clipboard") && system("uname") =~ "Darwin"
-  vnoremap "+y !pbcopy<cr>u
-endif
-
-" Open scratchpad
-nnoremap <leader>p :set paste!<cr>
-
-" ctrlp
-nnoremap <leader><leader> :CtrlP<cr>
-nnoremap <leader>n :CtrlP ~/repos/notes<cr>
-nnoremap <leader>k :CtrlP ~/repos/anki-imports<cr>
-nnoremap <leader>t :CtrlPTag<cr>
+" FZF
+nnoremap <leader><leader> :Files<cr>
+nnoremap <leader>n :FZF ~/repos/notes<cr>
+nnoremap <leader>t :Tags<cr>
 
 " Pretty print JSON and XML
 nnoremap <leader>j :%!python -m json.tool<cr>
@@ -371,16 +251,8 @@ vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
 nnoremap <leader>u yyp<c-v>$r-
 
 " * and # in visual mode search for the selection (from Practical Vim)
-xnoremap * :<c-u>call <sid>VSetSearch()<cr>/<c-r>=@/<cr><cr> 
+xnoremap * :<c-u>call <sid>VSetSearch()<cr>/<c-r>=@/<cr><cr>
 xnoremap # :<c-u>call <sid>VSetSearch()<cr>?<c-r>=@/<cr><cr>
-
-" Tabularize shortcuts
-nnoremap <leader>a= :Tabularize /=<cr>
-vnoremap <leader>a= :Tabularize /=<cr>
-nnoremap <leader>a: :Tabularize /:\zs<cr>
-vnoremap <leader>a: :Tabularize /:\zs<cr>
-nnoremap <leader>ac :Tabularize /,\zs\+/<cr>
-vnoremap <leader>ac :Tabularize /,\zs\+/<cr>
 
 " Rspec with Dispatch
 nnoremap <leader>r :Dispatch rspec %<cr>
@@ -388,108 +260,15 @@ nnoremap <leader>r :Dispatch rspec %<cr>
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" Generate HTML with Pandoc and open in browser 
-nnoremap <leader>h :call PreviewMarkdown()<cr>
-
 " <ctrl-c> to redraw screen
 nnoremap <c-c> :redraw!<cr>
-
-" Changes :x => y to x: y where possible
-command! -range RubyUpdateHashSyntax :exe '<line1>,<line2>s/:\([^ ]*\)\(\s*\)=>/\1:/g'
-
-" }}}
-
-
-" Functions ------------------------------------------------------ {{{
-
-" Open my scratchpad
-function! s:OpenScratchpad()
-  if $SCRATCHPAD
-    exe ":Gist " . $SCRATCHPAD
-    au! BufLeave,FocusLost * silent! wall
-  else
-    echoe "No $SCRATCHPAD"
-  endif
-endfunction
-command! OpenScratchpad call s:OpenScratchpad()
-
-" Prepend a header comment with the filename and a dashed line.
-function! HeaderComment()
-  " Prepend the buffer with filename and a dashed line.
-  call append(0, [expand('%:t'), repeat('-', strlen(expand('%:t')))])
-  " Comment it out with TComment
-  norm ggVjgc
-endfunction
-
-" Open a URL using a system-appropriate opener
-function! OpenURL(url)
-  let url = a:url
-  if url !~ "http://"
-    let url = "http://" . url
-  endif
-
-  " Mac?
-  if system("uname") =~ "Darwin" " Mac ?
-    silent call system('open "' . url . '" &')
-  " Windows?
-  elseif has("win32") || has("win64")
-    silent call system("start " . url)
-  " Some *nix? Does it have xdg-open?
-  elseif has("unix") && executable("xdg-open")
-    silent call system("xdg-open " . url . " &")
-  else
-    echoe "Couldn't find a suitable url opener."
-  endif
-
-  redraw!
-endfunction
-command! -nargs=1 OpenURL call OpenURL(<f-args>)
-
-" Open a URL that's under the cursor or visually selected
-function! OpenURLAtCursor()
-  if mode() ==# 'n'
-    let uri = expand("<cWORD>")
-    if match(uri, "://")
-      let uri = expand("<cfile>")
-    endif
-  else
-    let uri = s:GetSelectedText()
-  endif
-
-  call OpenURL(uri)
-endfunction
-command! -bar OpenURLAtCursor call OpenURLAtCursor(<f-args>)
-
-function! PreviewMarkdown()
-  let tempdir = substitute(system("mktemp -d /tmp/vim-md.XXXX"), "\n", "", "")
-  let tempfile = tempdir . "/" . expand("%:t:r") . ".html"
-  let convertCmd = "pandoc -o " . tempfile . " -c ~/repos/scratchpad/style.css " . expand("%")
-  let openCmd = "open " .  tempfile
-  silent call system(convertCmd . ";" . openCmd)
-endfunction
-
-function! s:GetSelectedText()
-  let [lnum1, col1] = getpos("'<")[1:2]
-  let [lnum2, col2] = getpos("'>")[1:2]
-  let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][col1 - 1:]
-  return join(lines, "\n")
-endfunction
-
-function! s:VSetSearch()
-  let temp = @s
-  norm! gv"sy
-  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g') 
-  let @s = temp
-endfunction
 
 " }}}
 
 
 " Statusline ----------------------------------------------------- {{{
 
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{SyntasticStatuslineFlag()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 " }}}
 
@@ -511,6 +290,7 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 iabbrev @@ ndreynolds@gmail.com
 iabbrev ndr Nick Reynolds
 iabbrev <expr> dts strftime("%c")
+iabbrev <expr> sig 'Nick Reynolds (' . strftime("%c") . ')'
 
 " }}}
 
@@ -520,21 +300,13 @@ iabbrev <expr> dts strftime("%c")
 " Resize splits on window resize
 au VimResized * :wincmd =
 
-" Set syntax for a few template extensions
-au BufNewFile,BufRead *.jst set syntax=jst
-au BufNewFile,BufRead *.json set filetype=json
-au BufNewFile,BufRead *.tpl set filetype=html.twig
-
 au BufNewFile,BufRead *.txt set filetype=markdown
-
-" JSON
 au BufNewFile,BufRead *.json set filetype=javascript
-
-" Header files should assume C (most likely for me)
 au BufNewFile,BufRead *.h set filetype=c
 
 au QuickFixCmdPost *grep* cwindow
 
+au BufWritePre * :%s/\s\+$//e
 
 " }}}
 
@@ -542,27 +314,24 @@ au QuickFixCmdPost *grep* cwindow
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-  autocmd Filetype python                   setlocal ai et sta sw=4 sts=4 tw=79
-  autocmd Filetype cpp,cs,java              setlocal ai et sta sw=4 sts=4 cin
-  autocmd Filetype c,ruby,coffee,javascript setlocal ai et sta sw=2 sts=2
-  autocmd Filetype css,scss,less            setlocal ai et sta sw=2 sts=2
-  autocmd Filetype jst,eruby,eco,haml       setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html,xhtml               setlocal ai et sta sw=2 sts=2
-  autocmd Filetype html.twig,jade           setlocal ai et sta sw=2 sts=2
-  autocmd Filetype eruby,yaml,json          setlocal ai et sta sw=2 sts=2
-  autocmd Filetype cucumber                 setlocal ai et sta sw=2 sts=2
-  autocmd Filetype vim,markdown             setlocal ai et sta sw=2 sts=2
-  autocmd Filetype sh,bash,zsh              setlocal ai et sta sw=2 sts=2
-  autocmd FileType gitcommit,markdown       setlocal spell
-  autocmd FileType ruby,haml                setlocal spell
-  autocmd FileType haskell                  setlocal omnifunc=necoghc#omnifunc
-  autocmd FileType crontab                  set nobackup nowritebackup
-  autocmd FileType help                     nnoremap <silent><buffer> q :q<cr>
+  au Filetype python                   setlocal ai et sta sw=4 sts=4 tw=79
+  au Filetype cpp,cs,java              setlocal ai et sta sw=4 sts=4 cin
 
-  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  au Filetype c,ruby,coffee,jsx,css,scss,less,eruby,haml,html,xhtml,eruby,yaml,json,vim,markdown,sh,bash,zsh
+    \ setlocal ai et sta sw=2 sts=2
+
+  au FileType gitcommit,markdown,ruby,haml
+    \ setlocal spell
+
+  au FileType haskell                  setlocal omnifunc=necoghc#omnifunc
+  au FileType crontab                  set nobackup nowritebackup
+  au FileType help                     nnoremap <silent><buffer> q :q<cr>
+
+  au FileType ruby,eruby
+                    \ set omnifunc=rubycomplete#Complete       |
+                    \ let g:rubycomplete_buffer_loading = 1    |
+                    \ let g:rubycomplete_classes_in_global = 1 |
+                    \ let g:rubycomplete_rails = 1
 augroup END
 
 " }}}

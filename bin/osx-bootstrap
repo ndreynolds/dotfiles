@@ -3,7 +3,6 @@
 ## Homebrew Packages & Apps
 
 PACKAGES=(
-  caskroom/cask/brew-cask
   cmake
   fish
   fzf
@@ -13,11 +12,11 @@ PACKAGES=(
   htop
   imagemagick
   leiningen
-  node 
+  node
   pcre
-  rbenv 
+  rbenv
   readline
-  ruby-build 
+  ruby-build
   pandoc
   pow
   tree
@@ -51,18 +50,9 @@ xcode-select -p || xcode-select --install
 
 ## Install Homebrew
 which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap caskroom/cask
 
 brew install ${PACKAGES[*]}
 brew cask install ${APPS[*]}
 
-## Homebrew Package Follow-ups
-
-# Install fzf shell extensions - this should be done whenever fzf is updated
-/usr/local/Cellar/fzf/$(fzf --version)/install
-
-# Install Oh My Fish for fish
-curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-
-## Grab colors and fonts for Terminal.app
-git clone --depth 1 https://github.com/altercation/solarized ~/Downloads/solarized
 git clone --depth 1 https://github.com/Lokaltog/powerline-fonts ~/Downloads/powerline-fonts

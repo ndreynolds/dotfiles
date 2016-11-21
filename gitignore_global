@@ -15,7 +15,9 @@ tags
 .DS_STORE
 .htaccess
 .local-files
+nicks-stuff
 
 TODO.local
 
 .ruby-version
+.ctags

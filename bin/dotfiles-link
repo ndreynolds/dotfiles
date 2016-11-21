@@ -37,6 +37,7 @@ def link(src, dst)
 end
 
 `mkdir -p ~/.config/fish`
+`mkdir -p ~/.config/nvim`
 
 populate_should_link
 
@@ -51,17 +52,13 @@ link "gitignore_global",            ".gitignore_global"
 link "hgrc",                        ".hgrc"
 link "jshintrc",                    ".jshintrc"
 link "profile",                     ".profile"
-link "profile",                     ".profile"
 link "rubocop.yml",                 ".rubocop.yml"
-link "rubocop.yml",                 ".rubocop.yml"
-link "screenrc",                    ".screenrc"
-link "screenrc",                    ".screenrc"
-link "slate",                       ".slate"
 link "slate",                       ".slate"
 link "tmux.conf",                   ".tmux.conf"
-link "tmuxinator",                  ".tmuxinator"
 link "vim",                         ".vim"
 link "vim/vimrc",                   ".vimrc"
+link "vim",                         ".config/nvim"
+link "vim/vimrc",                   ".config/nvim/init.vim"
 link "zsh/zshrc",                   ".zshrc"
 
 warn_unlinked

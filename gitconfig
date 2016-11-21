@@ -1,6 +1,7 @@
 [core]
-    excludesfile= ~/.gitignore_global
+    excludesfile = ~/.gitignore_global
     deltaBaseCacheLimit = 1G
+    ignorecase = false
 [user]
     name = Nick Reynolds
     email = ndreynolds@gmail.com
@@ -15,6 +16,10 @@
     branch = auto
     interactive = auto
     grep = auto
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
 [diff]
     mnemoicprefix = true
     renames = copies
@@ -36,11 +41,14 @@
     di = diff --cached
     dw = diff
     da = diff HEAD
+    wip = commit -m "WIP"
     todo = grep -n -E "(TODO|FIXME)"
     search = !sh -c 'git log -p -G$1 --all' -
     today = log --all --since='6am' --committer='Nick Reynolds' --pretty=format:'* %B' --no-merges
     my-commits = log --committer='Nick Reynolds'
-    conflicts = grep --untracked '<<<<<<< HEAD'
+    grep-conflicts = grep --untracked '<<<<<<<'
+    conflicts = diff --name-status --diff-filter=U
+    open-conflicts = !fish -c 'vim (git diff --name-only --diff-filter=U)'
 [push]
     default = upstream
 [include]
