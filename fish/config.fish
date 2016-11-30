@@ -1,6 +1,7 @@
 # aliases
 # -------
 
+alias v 'vim-fzf-select'
 alias c 'clear'
 alias ll 'ls -alF'
 alias la 'ls -A'
@@ -51,6 +52,14 @@ set -x AUTHOR 'Nick Reynolds'
 
 # functions
 # ---------
+
+function vim-fzf-select
+    if count $argv >/dev/null
+        vim $argv
+    else
+        fzf > $TMPDIR/fzf.result; and vim (cat $TMPDIR/fzf.result)
+    end
+end
 
 function bigfiles
     tree -ah --du $argv | ack "\[(\d{3,}M|\d+.*G)\]"
