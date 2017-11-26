@@ -6,6 +6,7 @@ EXCLUDES = [
   '..',
   '.git',
   '.gitignore',
+  'Brewfile',
   'README.md'
 ]
 
@@ -55,10 +56,12 @@ link "profile",                     ".profile"
 link "rubocop.yml",                 ".rubocop.yml"
 link "slate",                       ".slate"
 link "tmux.conf",                   ".tmux.conf"
-link "vim",                         ".vim"
 link "vim/vimrc",                   ".vimrc"
-link "vim",                         ".config/nvim"
 link "vim/vimrc",                   ".config/nvim/init.vim"
 link "zsh/zshrc",                   ".zshrc"
+
+Dir['fish/functions/*'].each do |fun|
+  link fun, ".config/fish/functions/#{File.basename(fun)}"
+end
 
 warn_unlinked

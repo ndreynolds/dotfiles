@@ -8,6 +8,3 @@ vim/spell
 vim/eclim
 vim/plugged
 vim/autoload/plug.vim*
-
-# Ignore projects by default, add templates with `-f`
-tmuxinator/

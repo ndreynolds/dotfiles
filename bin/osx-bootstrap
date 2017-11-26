@@ -1,58 +1,5 @@
 #!/bin/sh
 
-## Homebrew Packages & Apps
-
-PACKAGES=(
-  cmake
-  fish
-  fzf
-  gcc
-  git
-  haskell-stack
-  htop
-  imagemagick
-  leiningen
-  node
-  pcre
-  rbenv
-  readline
-  ruby-build
-  pandoc
-  pow
-  tree
-  unrar
-  wget
-)
-
-APPS=(
-  anvil
-  caffeine
-  cloud
-  firefox
-  google-chrome
-  macvim
-  mpv
-  sequel-pro
-  spotify
-  skitch
-  slate
-  transmission
-  virtualbox
-  vagrant
-  vagrant-bar
-)
-
-
-### Bootstrap
-
-## Install xCode / OS X Command Line Tools
-xcode-select -p || xcode-select --install
-
 ## Install Homebrew
 which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap caskroom/cask
-
-brew install ${PACKAGES[*]}
-brew cask install ${APPS[*]}
-
-git clone --depth 1 https://github.com/Lokaltog/powerline-fonts ~/Downloads/powerline-fonts
+brew bundle

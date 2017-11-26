@@ -5,6 +5,12 @@
 *.pyc
 *.hk
 
+# IntelliJ
+.idea
+
+# Elixir Language Server
+.elixir_ls
+
 # Vim
 *.swp
 doc/tags
@@ -13,6 +19,7 @@ tags
 
 # Mac
 .DS_STORE
+.DS_Store
 .htaccess
 .local-files
 nicks-stuff

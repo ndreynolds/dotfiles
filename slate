@@ -27,7 +27,7 @@ alias left_2_3    move screenOriginX;screenOriginY (2*(screenSizeX/3));screenSiz
 # Bind window hinting to cmd+e, using the given letters
 bind e:cmd hint 123456789 # use whatever keys you want
 
-# Press cmd+g to get a grid, drag on that 
+# Press cmd+g to get a grid, drag on that
 # grid to determine the size of an app
 bind g:cmd grid padding:5 0:6,2 1:8,2
 

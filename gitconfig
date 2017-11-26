@@ -4,7 +4,7 @@
     ignorecase = false
 [user]
     name = Nick Reynolds
-    email = ndreynolds@gmail.com
+    email = ndreynolds@posteo.de
 [init]
     templatedir = ~/.git_template
 [web]
@@ -50,10 +50,12 @@
     conflicts = diff --name-status --diff-filter=U
     open-conflicts = !fish -c 'vim (git diff --name-only --diff-filter=U)'
 [push]
-    default = upstream
+    default = current
 [include]
     path = ~/.gitconfig_local
 [filter "media"]
     clean = git media clean %f
     smudge = git media smudge %f
     required = true
+[gpg]
+	program = gpg

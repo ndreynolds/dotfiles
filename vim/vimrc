@@ -8,51 +8,51 @@
 set shell=/bin/sh
 set nocompatible
 
-if !filereadable($HOME . '/.vim/autoload/plug.vim')
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if !filereadable($HOME . '/.local/share/nvim/site/autoload/plug.vim')
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Language Support ---------------------------------------------
 
 Plug 'dag/vim-fish'
-Plug 'digitaltoad/vim-jade'
-Plug 'ecomba/vim-ruby-refactoring'
+" Plug 'ecomba/vim-ruby-refactoring'
 Plug 'fatih/vim-go'
-Plug 'groenewege/vim-less'
-Plug 'jcf/vim-latex'
-Plug 'kchmck/vim-coffee-script'
+" Plug 'jcf/vim-latex'
 " Plug 'lukaszb/vim-web-indent'
 " Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
 " Plug 'othree/xml.vim'
-" Plug 'pbrisbin/vim-syntax-shakespeare'
+" Plug 'mustache/vim-mustache-handlebars'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown'
-" Plug 'wavded/vim-stylus'
 " Plug 'chrisbra/csv.vim'
-Plug 'eagletmt/neco-ghc'
+" Plug 'eagletmt/neco-ghc'
 " Plug 'vim-pandoc/vim-pandoc'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'wting/rust.vim'
 Plug 'metakirby5/codi.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'parsonsmatt/intero-neovim'
 
 " Colorschemes / Visual ----------------------------------------
 
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'junegunn/seoul256.vim'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'bling/vim-airline'
+Plug 'KeitaNakamura/neodark.vim'
+" Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " Motions / Text Objects / Mappings ----------------------------
 
 " Plug 'bkad/CamelCaseMotion'
 " Plug 'godlygeek/tabular'
 Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'lokaltog/vim-easymotion'
+Plug 'nelstrom/vim-visual-star-search'
+" Plug 'lokaltog/vim-easymotion'
 Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -61,27 +61,26 @@ Plug 'tpope/vim-surround'
 
 " Utilities ----------------------------------------------------
 
-Plug 'bogado/file-line'
-Plug 'honza/vim-snippets'
-Plug 'itchyny/calendar.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'bogado/file-line'
+Plug 'kopischke/vim-fetch'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 " Plug 'neomake/neomake'
-Plug 'majutsushi/tagbar'
-" Plug 'scrooloose/syntastic'
-" Plug 'w0rp/ale'
+" Plug 'majutsushi/tagbar'
 Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
+" Plug 'tpope/vim-dispatch'
+" Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+" Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 " Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-vinegar'
-" Plug 'vim-scripts/LanguageTool'
 Plug 'vim-scripts/renamer.vim'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -148,31 +147,22 @@ endif
 
 " Plugin Configuration ------------------------------------------- {{{
 
-" LanguageTool
-let jar = '/usr/local/Cellar/languagetool/2.3/libexec/languagetool-commandline.jar'
-if filereadable(jar)
-  let g:languagetool_jar = jar
-endif
-let g:languagetool_disable_rules = 'WHITESPACE_RULE,EN_QUOTES,TYPOGRAFISCHE_ANFUEHRUNGSZEICHEN'
-
-" airline
-if $POWERLINE_FANCY
-  let g:airline_powerline_fonts=1
-endif
-
 " colorscheme
-if has('termguicolors')
-  set termguicolors
-endif
-let g:airline_theme='quantum'
+" if has('termguicolors')
+"   set termguicolors
+" endif
+let g:neodark#use_custom_terminal_theme = 1
 set background=dark
-colorscheme quantum
+colorscheme neodark
 
 " rsi
 let g:rsi_no_meta = 1
 
 " fzf
 let g:fzf_files_options = '--preview "ccat --color=always {}"'
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
 
 
 " }}}
@@ -198,9 +188,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 nnoremap <c-h> <c-w>h
-if has('nvim')
-  nnoremap <bs> <c-w>h
-endif
 
 " Catch accidental shift keys
 command! -bang -nargs=* -complete=file E e<bang> <args>
@@ -210,19 +197,6 @@ command! -bang -nargs=* -complete=file Wqa wqa<bang> <args>
 command! -bang -nargs=* -complete=file WQ wq<bang> <args>
 command! -bang -nargs=* -complete=file Q q<bang> <args>
 command! -bang -nargs=* -complete=file Vsp vsp<bang> <args>
-
-" vim-rails shortcuts
-nnoremap <leader>rv :Rview<cr>
-nnoremap <leader>rc :Rcontroller<cr>
-nnoremap <leader>rm :Rmodel<cr>
-
-" fugitive shortcuts
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>ga :Gadd<cr>
-
-" EasyMotion
-let g:EasyMotion_leader_key = '<leader><space>'
 
 " Reflow text to 80 cols
 nnoremap <leader>sw :set textwidth=80<cr>:normal! gggqG<esc>
@@ -247,15 +221,9 @@ vnoremap <leader>j :!python -m json.tool<cr>
 nnoremap <leader>x :%!tidy -i -q -asxhtml -utf8<cr>
 vnoremap <leader>x :!tidy -i -q -xml -utf8<cr>
 
-" Underline a heading
-nnoremap <leader>u yyp<c-v>$r-
-
 " * and # in visual mode search for the selection (from Practical Vim)
 xnoremap * :<c-u>call <sid>VSetSearch()<cr>/<c-r>=@/<cr><cr>
 xnoremap # :<c-u>call <sid>VSetSearch()<cr>?<c-r>=@/<cr><cr>
-
-" Rspec with Dispatch
-nnoremap <leader>r :Dispatch rspec %<cr>
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -267,8 +235,6 @@ nnoremap <c-c> :redraw!<cr>
 
 
 " Statusline ----------------------------------------------------- {{{
-
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 " }}}
 
@@ -291,6 +257,7 @@ iabbrev @@ ndreynolds@gmail.com
 iabbrev ndr Nick Reynolds
 iabbrev <expr> dts strftime("%c")
 iabbrev <expr> sig 'Nick Reynolds (' . strftime("%c") . ')'
+iabbrev iexpr require IEx<cr>IEx.pry
 
 " }}}
 
@@ -299,14 +266,16 @@ iabbrev <expr> sig 'Nick Reynolds (' . strftime("%c") . ')'
 
 " Resize splits on window resize
 au VimResized * :wincmd =
-
-au BufNewFile,BufRead *.txt set filetype=markdown
-au BufNewFile,BufRead *.json set filetype=javascript
-au BufNewFile,BufRead *.h set filetype=c
-
+"
+" au BufNewFile,BufRead *.txt set filetype=markdown
+" au BufNewFile,BufRead *.json set filetype=javascript
+" au BufNewFile,BufRead *.h set filetype=c
+"
 au QuickFixCmdPost *grep* cwindow
 
 au BufWritePre * :%s/\s\+$//e
+
+autocmd InsertEnter * call plug#load('deoplete.nvim')
 
 " }}}
 
@@ -314,8 +283,8 @@ au BufWritePre * :%s/\s\+$//e
 " FileType Autocommands ------------------------------------------ {{{
 
 augroup FTOptions
-  au Filetype python                   setlocal ai et sta sw=4 sts=4 tw=79
-  au Filetype cpp,cs,java              setlocal ai et sta sw=4 sts=4 cin
+"   au Filetype python                   setlocal ai et sta sw=4 sts=4 tw=79
+"   au Filetype cpp,cs,java              setlocal ai et sta sw=4 sts=4 cin
 
   au Filetype c,ruby,coffee,jsx,css,scss,less,eruby,haml,html,xhtml,eruby,yaml,json,vim,markdown,sh,bash,zsh
     \ setlocal ai et sta sw=2 sts=2
@@ -323,9 +292,9 @@ augroup FTOptions
   au FileType gitcommit,markdown,ruby,haml
     \ setlocal spell
 
-  au FileType haskell                  setlocal omnifunc=necoghc#omnifunc
-  au FileType crontab                  set nobackup nowritebackup
-  au FileType help                     nnoremap <silent><buffer> q :q<cr>
+"   au FileType haskell                  setlocal omnifunc=necoghc#omnifunc
+"   au FileType crontab                  set nobackup nowritebackup
+"   au FileType help                     nnoremap <silent><buffer> q :q<cr>
 
   au FileType ruby,eruby
                     \ set omnifunc=rubycomplete#Complete       |
