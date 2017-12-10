@@ -47,7 +47,7 @@ abbr br 'bin/rails'
 abbr r 'bin/rails spec'
 abbr rs 'bin/rails server'
 abbr rc 'bin/rails console'
-abbr rk 'bin/rails rake'
+abbr rk 'bin/rake'
 abbr rspec-without-features 'bundle exec rspec --exclude-pattern "spec/features/**/*"'
 
 abbr g 'git'
