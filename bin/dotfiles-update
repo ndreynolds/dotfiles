@@ -11,7 +11,7 @@ function _store_epoch() {
 }
 
 function _do_update() {
-  cd ~/dotfiles
+  cd ~/dotfiles || exit
   git stash
   git checkout master
   git pull origin master

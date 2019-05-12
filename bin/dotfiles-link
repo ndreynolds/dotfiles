@@ -42,23 +42,20 @@ end
 
 populate_should_link
 
-link "bash_profile",                ".bash_profile"
-link "bashrc",                      ".bashrc"
-link "emacs",	                    ".emacs"
+if `uname` =~ /Linux/
+  link "linux/bash_profile", ".bash_profile"
+  link "linux/bashrc",       ".bashrc"
+  link "linux/profile",      ".profile"
+end
+
+link "emacs",	                    ".emacs.d/init.el"
 link "fish/config.fish",            ".config/fish/config.fish"
 link "ghci",                        ".ghci"
 link "git_template",                ".git_template"
 link "gitconfig",                   ".gitconfig"
 link "gitignore_global",            ".gitignore_global"
-link "hgrc",                        ".hgrc"
-link "jshintrc",                    ".jshintrc"
-link "profile",                     ".profile"
-link "rubocop.yml",                 ".rubocop.yml"
-link "slate",                       ".slate"
-link "tmux.conf",                   ".tmux.conf"
 link "vim/vimrc",                   ".vimrc"
 link "vim/vimrc",                   ".config/nvim/init.vim"
-link "zsh/zshrc",                   ".zshrc"
 
 Dir['fish/functions/*'].each do |fun|
   link fun, ".config/fish/functions/#{File.basename(fun)}"

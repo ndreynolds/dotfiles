@@ -11,6 +11,8 @@ function funcs --description "manage user-defined funcs"
             else
                 vim (fd --type f . | fzf)
             end
+        else if [ $argv[1] = "link" ]
+            eval $DOTFILES_DIR/bin/dotfiles-link
         end
     else
         rg --only-matching \

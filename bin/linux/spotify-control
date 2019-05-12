@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Controls the Linux Spotify client via qdbus.
+#
+# Usage:
+#
+#   spotify-control <command>
+#
+# Commands:
+#
+#   Next, Previous, Play, Pause, PlayPause
+
+if [[ "$1" == "Start" ]]; then
+  flatpak run com.spotify.Client &
+else
+  qdbus org.mpris.MediaPlayer2.spotify \
+    /org/mpris/MediaPlayer2 \
+    org.mpris.MediaPlayer2.Player."$1"
+fi

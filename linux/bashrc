@@ -46,5 +46,5 @@ fi
 
 # Add personal bin
 if [ -d ~/dotfiles/bin ]; then
-    export PATH=$PATH:~/dotfiles/bin
+    export PATH=$PATH:~/dotfiles/bin:~/dotfiles/bin/linux
 fi

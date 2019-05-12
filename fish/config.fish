@@ -3,7 +3,7 @@
 
 set -x VIM_BINARY vim
 if type -q nvim
-    set -x VIM_BINARY "/usr/local/bin/nvim"
+    set -x VIM_BINARY (which nvim)
 end
 
 set -x FISH_CONFIG_DIR "$HOME/.config/fish"
@@ -23,7 +23,16 @@ set -x FZF_DEFAULT_COMMAND 'rg --files'
 # PATH config
 # -----------
 
-set -x PATH /usr/local/bin /usr/local/sbin $HOME/dotfiles/bin $HOME/bin $PATH
+set -x PATH /usr/local/bin /usr/local/sbin $HOME/dotfiles/bin $PATH
+
+switch (uname)
+    case Linux
+        set -x PATH $HOME/dotfiles/bin/linux $PATH
+    case Darwin
+        set -x PATH $HOME/dotfiles/bin/macos $PATH
+    case '*'
+        echo "Unrecognized OS"
+end
 
 
 # aliases
@@ -55,9 +64,15 @@ abbr gs 'git s'
 abbr gc 'git commit'
 abbr gcs git-commit-with-branch-prefix
 
-abbr dc 'docker-compose'
-abbr dcr 'docker-compose run --rm'
-abbr dcu 'docker-compose pull --parallel; and docker-compose up -d'
+if uname = "Linux"
+    abbr dc 'sudo docker-compose'
+    abbr dcr 'sudo docker-compose run --rm'
+    abbr dcu 'sudo docker-compose pull --parallel; and docker-compose up -d'
+else
+    abbr dc 'docker-compose'
+    abbr dcr 'docker-compose run --rm'
+    abbr dcu 'docker-compose pull --parallel; and docker-compose up -d'
+end
 
 
 # functions
@@ -81,6 +96,6 @@ end
 # startup
 # -------
 
-# if status --is-interactive
-#     bash ~/dotfiles/bin/dotfiles-update
-# end
+if status --is-interactive
+    bash ~/dotfiles/bin/dotfiles-update
+end

@@ -1,0 +1,7 @@
+#!/bin/bash
+# dmenu_path | fzf | xargs '{} &'
+
+prog=$(compgen -c | sort -u | fzf)
+if [[ "$prog" != "" ]]; then
+  $prog &
+fi
